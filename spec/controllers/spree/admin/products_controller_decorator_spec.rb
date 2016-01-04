@@ -2,9 +2,9 @@ RSpec.describe Spree::Admin::ProductsController, type: :controller do
   stub_authorization!
 
   let(:user) { create(:user) }
-  let(:product) { create(:product) }
+  let!(:product) { create(:product) }
 
-  before { allow(controller).to receive(:spree_current_user).and_return(user) }
+  before { stub_authentication! }
   after  { Spree::Admin::ProductsController.clear_overrides! }
 
   context 'related' do

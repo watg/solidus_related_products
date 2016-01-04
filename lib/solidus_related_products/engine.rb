@@ -1,8 +1,8 @@
-module SpreeRelatedProducts
+module SolidusRelatedProducts
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree
-    engine_name 'spree_related_products'
+    engine_name 'solidus_related_products'
 
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/models/spree/calculator)
 

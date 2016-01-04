@@ -1,4 +1,4 @@
-module SpreeRelatedProducts
+module SolidusRelatedProducts
   module_function
 
   # Returns the version of the currently loaded SpreeRelatedProducts as a
@@ -8,10 +8,10 @@ module SpreeRelatedProducts
   end
 
   module VERSION
-    MAJOR = 3
-    MINOR = 2
+    MAJOR = 1
+    MINOR = 1
     TINY  = 0
-    PRE   = nil
+    PRE   = 'beta0'
 
     STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
   end

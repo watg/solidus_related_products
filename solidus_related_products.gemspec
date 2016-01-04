@@ -1,12 +1,12 @@
 lib = File.expand_path('../lib/', __FILE__)
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 
-require 'spree_related_products/version'
+require 'solidus_related_products/version'
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree_related_products'
-  s.version     = SpreeRelatedProducts.version
+  s.name        = 'solidus_related_products'
+  s.version     = SolidusRelatedProducts.version
   s.summary     = 'Allows multiple types of relationships between products to be defined'
   s.description = s.summary
   s.required_ruby_version = '>= 2.1.0'
@@ -40,4 +40,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rubocop', '>= 0.24.1'
+  s.add_development_dependency 'rspec-activemodel-mocks'
 end

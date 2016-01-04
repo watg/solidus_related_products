@@ -34,7 +34,6 @@ module Spree
       def destroy
         @relation = Relation.find(params[:id])
         if @relation.destroy
-
           flash[:success] = flash_message_for(@relation, :successfully_removed)
 
           respond_with(@relation) do |format|
