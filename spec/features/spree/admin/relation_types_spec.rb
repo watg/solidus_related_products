@@ -6,7 +6,7 @@ RSpec.feature 'Admin Relation Types', :js do
   end
 
   scenario 'when no relation types exists' do
-    expect(page).to have_text 'No Relation Types found, Add One!'
+    expect(page).to have_text 'NO RELATION TYPES FOUND, ADD ONE!'
   end
 
   context 'create' do
@@ -87,7 +87,7 @@ RSpec.feature 'Admin Relation Types', :js do
       scenario 'can remove records' do
         within_row(1) do
           expect(column_text(1)).to eq 'Gears'
-          click_icon :delete
+          click_icon :trash
         end
         page.driver.browser.switch_to.alert.accept unless Capybara.javascript_driver == :poltergeist
         expect(page).to have_text 'successfully removed!'

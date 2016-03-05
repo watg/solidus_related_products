@@ -12,7 +12,7 @@ RSpec.feature 'Admin Product Relation', :js do
   end
 
   scenario 'create relation' do
-    expect(page).to have_text 'Add Related Product'
+    expect(page).to have_text 'ADD RELATED PRODUCT'
     expect(page).to have_text product.name
 
     within('#add-line-item') do
@@ -42,7 +42,7 @@ RSpec.feature 'Admin Product Relation', :js do
     end
 
     scenario 'ensure content exist' do
-      expect(page).to have_text 'Add Related Product'
+      expect(page).to have_text 'ADD RELATED PRODUCT'
       expect(page).to have_text product.name
       expect(page).to have_text other.name
 

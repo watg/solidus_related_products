@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
 
   s.has_rdoc = false
 
-  s.add_runtime_dependency 'spree_backend', '~> 3.1.0.beta'
+  s.add_runtime_dependency 'solidus_backend', '~> 1.1.0'
 
   s.add_development_dependency 'factory_girl', '4.4'
   s.add_development_dependency 'ffaker'
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sqlite3', '~> 1.3.10'
   s.add_development_dependency 'capybara', '~> 2.5'
   s.add_development_dependency 'capybara-screenshot', '~> 1.0.11'
-  s.add_development_dependency 'poltergeist', '~> 1.5.0'
+  s.add_development_dependency 'poltergeist', '~> 1.9.0'
   s.add_development_dependency 'shoulda-matchers', '~> 2.5'
   s.add_development_dependency 'simplecov', '~> 0.9.0'
   s.add_development_dependency 'database_cleaner', '~> 1.3.0'
