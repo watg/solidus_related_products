@@ -66,10 +66,9 @@ RSpec.feature 'Admin Product Relation', :js do
 
     context 'delete' do
       scenario 'can remove records' do
-        skip 'strange bug with delete record'
         within_row(1) do
           expect(column_text(2)).to eq other.name
-          click_icon :delete
+          click_icon :trash
         end
         page.driver.browser.switch_to.alert.accept unless Capybara.javascript_driver == :poltergeist
         wait_for_ajax
