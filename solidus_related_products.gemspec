@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.author       = 'Brian Quinn'
   s.email        = 'brian@railsdog.com'
-  s.homepage     = 'https://github.com/spree-contrib/spree_related_products'
+  s.homepage     = 'https://github.com/solidusio-contrib/solidus_related_products'
   s.license      = 'BSD-3'
 
   s.files        = `git ls-files`.split("\n")
