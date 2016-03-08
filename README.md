@@ -1,13 +1,23 @@
 # Related Products
 
-[![Build Status](https://snap-ci.com/magma-labs/spree_related_products/branch/master/build_image)](https://snap-ci.com/magma-labs/spree_related_products/branch/master)
-[![Code Climate](https://codeclimate.com/github/magma-labs/spree_related_products/badges/gpa.svg)](https://codeclimate.com/github/magma-labs/spree_related_products)
-
 This extension provides a generic way for you to define different types of relationships between your products, by defining a RelationType for each type of relationship you'd like to maintain.
 
 You can manage RelationTypes via the admin configuration menu, and you can maintain product relationships via __Related Products__ tab on the edit product UI.
 
-### Possible uses
+## Installation
+
+Add to `Gemfile`:
+```ruby
+gem 'spree_related_products'
+```
+
+Run:
+```sh
+$ bundle install
+$ bundle exec rails g solidus_related_products:install
+```
+
+## Possible uses
 
 * Accessories
 * Cross Sells
@@ -16,7 +26,7 @@ You can manage RelationTypes via the admin configuration menu, and you can maint
 * Replacement Products
 * Warranty & Support Products
 
-### Relation Types
+## Relation Types
 
 When you create a RelationType you can access that set of related products by referencing the relation_type name, see below for an example:
 ```ruby
@@ -49,21 +59,6 @@ product.relations
 You can optionally specify a discount amount to be applied if a customer purchases both products.
 
 Note: In order for the coupon to be automatically applied, you must create a promotion leaving the __code__ value empty, and adding an Action of type : __RelatedProductDiscount__  (blank codes are required for coupons to be automatically applied).
-
----
-
-## Installation
-
-Add to `Gemfile`:
-```ruby
-gem 'spree_related_products', github: 'magma-labs/spree_related_products', branch: 'master'
-```
-
-Run:
-```sh
-$ bundle && bundle exec rails g spree_related_products:install
-```
----
 
 ## Contributing
 
