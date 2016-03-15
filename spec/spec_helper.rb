@@ -36,6 +36,13 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.syntax = :expect
   end
+
+  if defined?(VersionCake::TestHelpers)
+    config.include(VersionCake::TestHelpers, type: :controller)
+    config.before(:each, type: :controller) do
+      set_request_version '', 1
+    end
+  end
 end
 
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |file| require file }
