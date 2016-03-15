@@ -1,2 +1,2 @@
 object @relation
- attributes *Spree::Relation.column_names
+attributes *Spree::Relation.column_names
