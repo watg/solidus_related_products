@@ -12,7 +12,7 @@ You can manage RelationTypes via the admin configuration menu, and you can maint
 
 Add to `Gemfile`:
 ```ruby
-gem 'spree_related_products'
+gem 'solidus_related_products'
 ```
 
 Run:
