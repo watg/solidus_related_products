@@ -73,8 +73,8 @@ See corresponding [guidelines][4]
 Copyright (c) 2010-2015 [Brian Quinn][5] and [contributors][6], released under the [New BSD License][3]
 
 [1]: http://www.fsf.org/licensing/essays/free-sw.html
-[2]: https://github.com/spree-contrib/spree_related_products/issues
-[3]: https://github.com/spree-contrib/spree_related_products/blob/master/LICENSE.md
-[4]: https://github.com/spree-contrib/spree_related_products/blob/master/CONTRIBUTING.md
+[2]: https://github.com/solidusio-contrib/solidus_related_products/issues
+[3]: https://github.com/solidusio-contrib/solidus_related_products/blob/master/LICENSE.md
+[4]: https://github.com/solidusio-contrib/solidus_related_products/blob/master/CONTRIBUTING.md
 [5]: https://github.com/BDQ
-[6]: https://github.com/spree-contrib/spree_related_products/graphs/contributors
+[6]: https://github.com/solidusio-contrib/solidus_related_products/graphs/contributors
