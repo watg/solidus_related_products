@@ -38,7 +38,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner', '~> 1.3'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rubocop', '>= 0.24.1'
   s.add_development_dependency 'rspec-activemodel-mocks'
