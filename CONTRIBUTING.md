@@ -1,6 +1,6 @@
 # Contributing
 
-Spree Related Products is an open source project and we encourage contributions. Please see the [contributors guidelines](http://spreecommerce.com/documentation/contributing_to_spree.html) for more information before contributing.
+Solidus Related Products is an open source project and we encourage contributions.
 
 In the spirit of [free software][1], **everyone** is encouraged to help improve this project.
 
@@ -30,7 +30,7 @@ In the issue itself please provide:
 
 * A comprehensive list of steps to reproduce the issue.
 * What you're *expecting* to happen compared with what's *actually* happening.
-* The version of Spree *and* the version of Rails.
+* The version of Solidus *and* the version of Rails.
 * A list of all extensions.
 * Any relevant stack traces ("Full trace" preferred)
 * Your `Gemfile`
@@ -77,5 +77,5 @@ Some things that will increase the chance that your pull request is accepted, ta
 And in case we didn't emphasize it enough: **we love tests!**
 
 [1]: http://www.fsf.org/licensing/essays/free-sw.html
-[2]: https://github.com/spree-contrib/spree_related_products/issues
-[3]: https://github.com/spree-contrib/spree_related_products/tree/master/config/locales
+[2]: https://github.com/solidusio-contrib/solidus_related_products/issues
+[3]: https://github.com/solidusio-contrib/solidus_related_products/tree/master/config/locales
