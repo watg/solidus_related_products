@@ -6,3 +6,4 @@ AllCops:
     - spec/dummy/**/*
     - bin/*
     - Guardfile
+    - vendor/bundle/*
