@@ -35,9 +35,9 @@ RSpec.describe Spree::Calculator::RelatedProductDiscount, type: :model do
         create(:relation, relatable: product, related_to: related_product, relation_type: relation_type, discount_amount: 1.0)
       end
 
+      # TODO: figure out what this test is trying to accomplish
       it 'returns total count of Array' do
-        objects = Array.new { @order }
-        expect(subject.compute(objects)).to be_nil
+        expect(subject.compute([])).to be_nil
       end
 
       it 'returns total count' do

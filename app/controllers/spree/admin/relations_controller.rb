@@ -38,7 +38,7 @@ module Spree
 
           respond_with(@relation) do |format|
             format.html { redirect_to location_after_destroy }
-            format.js   { render :partial => "spree/admin/shared/destroy" }
+            format.js   { render partial: "spree/admin/shared/destroy" }
           end
 
         else
