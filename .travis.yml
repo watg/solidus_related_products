@@ -6,6 +6,7 @@ cache: bundler
 env:
   matrix:
     - SOLIDUS_BRANCH=master
+    - SOLIDUS_BRANCH=v1.3
     - SOLIDUS_BRANCH=v1.2
     - SOLIDUS_BRANCH=v1.1
 before_script:
