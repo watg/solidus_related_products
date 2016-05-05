@@ -101,6 +101,6 @@ Spree::Product.class_eval do
   end
 
   def format_name(name)
-    name.to_s.downcase.gsub(' ', '_').pluralize
+    name.to_s.downcase.tr(' ', '_').pluralize
   end
 end

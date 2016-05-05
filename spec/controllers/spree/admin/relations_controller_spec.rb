@@ -39,6 +39,8 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       }
     end
 
+    let(:invalid_params) { { format: :js, product_id: product.id } }
+
     context '#create' do
       it 'is not routable' do
         spree_post :create, valid_params
@@ -53,8 +55,8 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
 
       it 'raises error with invalid params' do
         expect {
-          spree_post :create, format: :js
-        }.to raise_error
+          spree_post :create, invalid_params
+        }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
