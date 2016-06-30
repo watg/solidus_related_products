@@ -25,12 +25,9 @@
         <td><%= relation.relation_type.name %></td>
         <td>
           <%= form_for relation, url: admin_product_relation_path(relation.relatable, relation) do |f| %>
-            <div class="input-group">
-              <%= f.text_field :discount_amount, class: 'form-control text-center' %>
-              <span class="input-group-btn">
-                <%= f.button Spree.t(:update), type: 'submit', class: 'btn btn-primary' %>
-              </span>
-            </div>
+
+            <%= f.text_field :discount_amount, class: 'form-control text-center' %>
+            <%= f.button Spree.t(:update), type: 'submit', class: 'button btn-primary' %>
           <% end %>
         </td>
         <td class="actions">
