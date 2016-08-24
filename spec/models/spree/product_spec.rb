@@ -114,16 +114,4 @@ RSpec.describe Spree::Product, type: :model do
       end
     end
   end
-
-  context 'instance when relation_types table is missing' do
-    it 'method missing should not throw ActiveRecord::StatementInvalid when the spree_relation_types table is missing' do
-      described_class.connection.rename_table('spree_relation_types', 'missing_relation_types')
-      begin
-        product = described_class.new
-        expect { product.foo }.to raise_error(NameError)
-      ensure
-        described_class.connection.rename_table('missing_relation_types', 'spree_relation_types')
-      end
-    end
-  end
 end
