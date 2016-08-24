@@ -6,7 +6,7 @@ RSpec.feature 'Admin Relation Types', :js do
   end
 
   scenario 'when no relation types exists' do
-    expect(page).to have_text 'NO RELATION TYPES FOUND, ADD ONE!'
+    expect(page).to have_text /NO RELATION TYPES FOUND, ADD ONE!/i
   end
 
   context 'create' do

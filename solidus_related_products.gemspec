@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
 
   s.has_rdoc = false
 
-  s.add_runtime_dependency 'solidus_backend', '~> 1.0'
+  s.add_runtime_dependency 'solidus_backend', ['>= 1.0', '< 3']
   s.add_runtime_dependency 'deface'
 
   s.add_development_dependency 'factory_girl', '~> 4.5'
@@ -36,9 +36,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'shoulda-matchers', '~> 2.5'
   s.add_development_dependency 'simplecov', '~> 0.9'
   s.add_development_dependency 'database_cleaner', '~> 1.3'
-  s.add_development_dependency 'coffee-rails'
-  s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'pry-rails'
   s.add_development_dependency 'rubocop', '>= 0.24.1'
   s.add_development_dependency 'rspec-activemodel-mocks'
 end
