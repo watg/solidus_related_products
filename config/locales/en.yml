@@ -9,6 +9,9 @@ en:
         one: Relation Type
         other: Relation Types
   spree:
+    admin:
+      tab: 
+        relation_types: Relation Types
     new_relation_type: New Relation Type
     related_product_discount: Related Product Discount
     applies_to: Applies To
