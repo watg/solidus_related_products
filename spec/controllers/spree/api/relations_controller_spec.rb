@@ -43,12 +43,12 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
 
     context '#create' do
       it 'creates the relation' do
-        spree_post :create, valid_params
+        post :create, valid_params
         expect(response.status).to eq(201)
       end
 
       it 'responds 422 error with invalid params' do
-        spree_post :create, format: :json, product_id: product.id, token: user.spree_api_key
+        post :create, format: :json, product_id: product.id, token: user.spree_api_key
         expect(response.status).to eq(422)
       end
     end
@@ -62,7 +62,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
           relation: { discount_amount: 2.0 }
         }
         expect {
-          spree_put :update, params
+          put :update, params
         }.to change { relation.reload.discount_amount.to_s }.from('0.0').to('2.0')
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
     context '#destroy with' do
       it 'records successfully' do
         expect {
-          spree_delete :destroy, id: relation.id, product_id: product.id, format: :json, token: user.spree_api_key
+          delete :destroy, id: relation.id, product_id: product.id, format: :json, token: user.spree_api_key
         }.to change(Spree::Relation, :count).by(-1)
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
             positions: { relation.id => '1', relation2.id => '0' },
             format: :json
           }
-          spree_post :update_positions, params
+          post :update_positions, params
           relation.reload
         }.to change(relation, :position).from(0).to(1)
       end

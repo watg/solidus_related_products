@@ -43,26 +43,26 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
 
     context '#create' do
       it 'is not routable' do
-        spree_post :create, valid_params
+        post :create, valid_params
         expect(response.status).to be(200)
       end
 
       it 'returns success with valid params' do
         expect {
-          spree_post :create, valid_params
+          post :create, valid_params
         }.to change(Spree::Relation, :count).by(1)
       end
 
       it 'raises error with invalid params' do
         expect {
-          spree_post :create, invalid_params
+          post :create, invalid_params
         }.to raise_error(ActionController::ParameterMissing)
       end
     end
 
     context '#update' do
       it 'redirects to product/related url' do
-        spree_put :update, product_id: product.id, id: relation.id, relation: { discount_amount: 2.0 }
+        put :update, product_id: product.id, id: relation.id, relation: { discount_amount: 2.0 }
         expect(response).to redirect_to(spree.admin_product_path(relation.relatable) + '/related')
       end
     end
@@ -70,7 +70,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
     context '#destroy' do
       it 'records successfully' do
         expect {
-          spree_delete :destroy, id: relation.id, product_id: product.id, format: :js
+          delete :destroy, id: relation.id, product_id: product.id, format: :js
         }.to change(Spree::Relation, :count).by(-1)
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
             positions: { relation.id => '1', relation2.id => '0' },
             format: :js
           }
-          spree_post :update_positions, params
+          post :update_positions, params
           relation.reload
         }.to change(relation, :position).from(0).to(1)
       end
