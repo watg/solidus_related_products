@@ -17,7 +17,6 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
   end
 
   before { stub_authentication! }
-  after  { Spree::Admin::ProductsController.clear_overrides! }
 
   context '.model_class' do
     it 'responds to model_class as Spree::Relation' do

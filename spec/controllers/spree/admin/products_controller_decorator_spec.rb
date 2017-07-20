@@ -5,7 +5,6 @@ RSpec.describe Spree::Admin::ProductsController, type: :controller do
   let!(:product) { create(:product) }
 
   before { stub_authentication! }
-  after  { Spree::Admin::ProductsController.clear_overrides! }
 
   context 'related' do
     it 'is not routable' do
