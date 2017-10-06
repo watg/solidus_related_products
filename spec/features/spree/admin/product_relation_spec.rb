@@ -22,8 +22,6 @@ RSpec.feature 'Admin Product Relation', :js do
       click_link 'Add'
     end
 
-    wait_for_ajax
-
     within_row(1) do
       expect(page).to have_field('relation_discount_amount', with: '0.8')
       expect(column_text(2)).to eq other.name
@@ -64,7 +62,7 @@ RSpec.feature 'Admin Product Relation', :js do
         fill_in 'relation_discount_amount', with: '0.9'
         click_on 'Update'
       end
-      wait_for_ajax
+
       within_row(1) do
         expect(page).to have_field('relation_discount_amount', with: '0.9')
       end
@@ -73,12 +71,14 @@ RSpec.feature 'Admin Product Relation', :js do
     context 'delete' do
       scenario 'can remove records' do
         expect(page).to have_text other.name
-        within_row(1) do
-          expect(column_text(2)).to eq other.name
-          click_icon :trash
+
+        accept_alert do
+          within_row(1) do
+            expect(column_text(2)).to eq other.name
+            click_icon :trash
+          end
         end
-        page.driver.browser.switch_to.alert.accept unless Capybara.javascript_driver == :poltergeist
-        wait_for_ajax
+
         expect(page).not_to have_text other.name
       end
     end
