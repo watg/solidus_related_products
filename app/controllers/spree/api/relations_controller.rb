@@ -10,7 +10,7 @@ module Spree
         @relation.relatable = @product
         @relation.related_to = Spree::Variant.find(relation_params[:related_to_id]).product
         if @relation.save
-          respond_with(@relation, status: 201, default_template: :show)
+          render json: @relation.to_json, status: 201
         else
           invalid_resource!(@relation)
         end
@@ -19,7 +19,7 @@ module Spree
       def update
         authorize! :update, Relation
         if @relation.update_attributes(relation_params)
-          respond_with(@relation, status: 200, default_template: :show)
+          render json: @relation.to_json
         else
           invalid_resource!(@relation)
         end
@@ -32,7 +32,7 @@ module Spree
         end
 
         respond_to do |format|
-          format.json { render nothing: true, status: 200 }
+          format.json { head :ok }
           format.js { render text: 'Ok' }
         end
       end
