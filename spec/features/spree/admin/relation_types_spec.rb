@@ -66,7 +66,7 @@ RSpec.feature 'Admin Relation Types', :js do
     context 'edit' do
       background do
         within_row(1) { click_icon :edit }
-        expect(current_path).to eq spree.edit_admin_relation_type_path(1)
+        expect(page).to have_current_path(spree.edit_admin_relation_type_path(1))
       end
 
       scenario 'can update an existing relation type' do
