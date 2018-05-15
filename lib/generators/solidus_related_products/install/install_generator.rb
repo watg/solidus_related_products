@@ -7,6 +7,10 @@ module SolidusRelatedProducts
         run 'bundle exec rake railties:install:migrations FROM=solidus_related_products'
       end
 
+      def add_stylesheets
+        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require spree/backend/solidus_related_products\n", before: /\*\//, verbose: true
+      end
+
       def run_migrations
         run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]'))
         if run_migrations
