@@ -12,7 +12,7 @@ module SolidusRelatedProducts
 
     class << self
       def activate
-        cache_klasses = %W(#{config.root}/app/**/*_decorator*.rb)
+        cache_klasses = %W(#{config.root}/app/decorators/**/*.rb)
         Dir.glob(cache_klasses) do |klass|
           Rails.configuration.cache_classes ? require(klass) : load(klass)
         end
