@@ -30,9 +30,9 @@ RSpec.describe Spree::Calculator::RelatedProductDiscount, type: :model do
         allow(@order).to receive(:line_items).and_return([line_item])
 
         related_product = create(:product)
-        relation_type   = create(:relation_type)
+        relation_type   = create(:product_relation_type)
 
-        create(:relation, relatable: product, related_to: related_product, relation_type: relation_type, discount_amount: 1.0)
+        create(:product_relation, relatable: product, related_to: related_product, relation_type: relation_type, discount_amount: 1.0)
       end
 
       # TODO: figure out what this test is trying to accomplish

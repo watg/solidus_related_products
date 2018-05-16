@@ -48,7 +48,7 @@ RSpec.feature 'Admin Relation Types', :js do
   context 'with records' do
     background do
       %w(Gears Equipments).each do |name|
-        create(:relation_type, name: name)
+        create(:product_relation_type, name: name)
       end
       visit spree.admin_relation_types_path
     end

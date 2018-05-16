@@ -2,7 +2,7 @@ RSpec.describe Spree::Product, type: :model do
   context 'class' do
     describe '.relation_types' do
       it 'returns all the RelationTypes in use for this Product' do
-        relation_type = create(:relation_type)
+        relation_type = create(:product_relation_type)
         expect(described_class.relation_types).to include(relation_type)
       end
     end
@@ -18,13 +18,13 @@ RSpec.describe Spree::Product, type: :model do
 
     before do
       @product = create(:product)
-      @relation_type = create(:relation_type, name: 'Related Products')
+      @relation_type = create(:product_relation_type, name: 'Related Products')
     end
 
     describe '.relations' do
       it 'has many relations' do
-        relation1 = create(:relation, relatable: @product, related_to: other1, relation_type: @relation_type)
-        relation2 = create(:relation, relatable: @product, related_to: other2, relation_type: @relation_type)
+        relation1 = create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)
+        relation2 = create(:product_relation, relatable: @product, related_to: other2, relation_type: @relation_type)
 
         @product.reload
         expect(@product.relations).to include(relation1)
@@ -34,8 +34,8 @@ RSpec.describe Spree::Product, type: :model do
       it 'has many relations for different RelationTypes' do
         other_relation_type = Spree::RelationType.new(name: 'Recommended Products')
 
-        relation1 = create(:relation, relatable: @product, related_to: other1, relation_type: @relation_type)
-        relation2 = create(:relation, relatable: @product, related_to: other1, relation_type: other_relation_type)
+        relation1 = create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)
+        relation2 = create(:product_relation, relatable: @product, related_to: other1, relation_type: other_relation_type)
 
         @product.reload
         expect(@product.relations).to include(relation1)
@@ -45,7 +45,7 @@ RSpec.describe Spree::Product, type: :model do
 
     describe 'RelationType finders' do
       before do
-        @relation = create(:relation, relatable: @product, related_to: other1, relation_type: @relation_type)
+        @relation = create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)
         @product.reload
       end
 
@@ -69,8 +69,8 @@ RSpec.describe Spree::Product, type: :model do
       it 'does not return relations for another RelationType' do
         other_relation_type = Spree::RelationType.new(name: 'Recommended Products')
 
-        create(:relation, relatable: @product, related_to: other1, relation_type: @relation_type)
-        create(:relation, relatable: @product, related_to: other2, relation_type: other_relation_type)
+        create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)
+        create(:product_relation, relatable: @product, related_to: other2, relation_type: other_relation_type)
 
         @product.reload
         expect(@product.related_products).to include(other1)
@@ -106,7 +106,7 @@ RSpec.describe Spree::Product, type: :model do
           other1.master.update_attributes(cost_price: 10)
           other2.master.update_attributes(cost_price: 30)
 
-          create(:relation, relatable: @product, related_to: other2, relation_type: @relation_type)
+          create(:product_relation, relatable: @product, related_to: other2, relation_type: @relation_type)
           results = @product.related_products
           expect(results).not_to include(other1)
           expect(results).to include(other2)
