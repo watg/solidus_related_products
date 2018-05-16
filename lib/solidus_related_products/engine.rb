@@ -16,6 +16,8 @@ module SolidusRelatedProducts
         Dir.glob(cache_klasses) do |klass|
           Rails.configuration.cache_classes ? require(klass) : load(klass)
         end
+
+        ActionView::Base.send :include, RelatedProductsHelper
       end
     end
 

@@ -2,10 +2,6 @@ module SolidusRelatedProducts
   module Admin
     module ProductsController
       module AddRelatedAction
-        def self.prepended(base)
-          base.helper RelatedProductHelper
-        end
-
         def related
           load_resource
           @relation_types = Spree::Product.relation_types

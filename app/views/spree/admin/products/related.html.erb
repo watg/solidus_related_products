@@ -12,56 +12,40 @@
     <fieldset>
       <legend><%= Spree.t(:add_related_product) %></legend>
       <div data-hook="admin_product_related_products_add" class="row">
-
-        <div class="col-xs-4">
-          <%= label_tag :add_variant_name, Spree.t(:name_or_sku_short) %>
-          <%= hidden_field_tag :add_variant_name, '', class: 'variant_autocomplete', style: "display: block !important;" %>
+        <div id="related_product_type" class="col-4">
+          <div class="form-group">
+            <%= label_tag :add_type, Spree.t(:type) %>
+            <%= select_tag :add_type, options_for_select(
+              @relation_types.map { |rt| [rt.name, rt.id, {'data-relation-type': rt.applies_to}] }),
+              class: 'select2 relation_type', style: "display: block" %>
+          </div>
         </div>
 
-        <div class="col-xs-4">
-          <%= label_tag :add_type, Spree.t(:type) %>
-          <%= select_tag :add_type, options_for_select(@relation_types.map { |rt| [rt.name, rt.id] }), class: 'select2', style: "display: block" %>
+        <div id="related_product_name" class="col-4">
+          <div class="form-group">
+            <%= label_tag :add_related_to_name, Spree.t(:name_or_sku_short) %>
+            <%= hidden_field_tag :add_related_to_name, '', class: 'related_to_autocomplete' %>
+          </div>
         </div>
 
-        <div class="col-xs-4">
-          <%= label_tag :add_discount, Spree.t(:discount_amount) %>
-          <%= text_field_tag :add_discount, 0.0, class: 'form-control text-center' %>
+        <div id="related_product_discount" class="col-4">
+          <div class="form-group">
+            <%= label_tag :add_discount, Spree.t(:discount_amount) %>
+            <%= text_field_tag :add_discount, 0.0, class: 'form-control text-center' %>
+          </div>
         </div>
       </div>
 
-      <div class="actions filter-actions" data-hook="admin_product_related_products_buttons">
-        <%= button_link_to Spree.t(:add), admin_product_relations_url(@product), id: 'add_related_product', data: { update: 'products-table-wrapper' } %>
-      </div>
+      <div class='row'>
+        <div class='column'>
+          <%= button_link_to Spree.t(:add), admin_product_relations_url(@product),
+            id: 'add_related_product', data: { update: 'products-table-wrapper' } %>
+        <div>
+      <div>
     </fieldset>
   </div>
 
   <div id="products-table-wrapper">
     <%= render 'related_products_table', product: @product %>
   </div>
-
-  <%= content_for :head do %>
-    <script type="text/javascript">
-      var expand_variants = false;
-      $(document).on('click', '#add_related_product', function(){
-        if($('#add_variant_name').val() == '') { return false; }
-        update_target = $(this).data('update');
-        $.ajax({
-          dataType: 'script',
-          url: this.href,
-          type: 'POST',
-          data: {
-            'relation[related_to_type]' : 'Product',
-            'relation[related_to_id]': $('#add_variant_name').val(),
-            'relation[relation_type_id]': $('#add_type').val(),
-            'relation[discount_amount]' : $('#add_discount').val()
-          }
-        });
-        return false;
-      });
-
-      $(function () {
-        $('#add_variant_name.variant_autocomplete').variantAutocomplete();
-      });
-    </script>
-  <% end %>
 <% end %>
