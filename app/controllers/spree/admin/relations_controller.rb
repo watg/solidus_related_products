@@ -38,14 +38,14 @@ module Spree
           flash[:success] = flash_message_for(@relation, :successfully_removed)
 
           respond_with(@relation) do |format|
-            format.html { redirect_to location_after_destroy }
+            format.html { redirect_back(fallback_location: admin_product_path(@product)) }
             format.js   { render partial: "spree/admin/shared/destroy" }
           end
 
         else
 
           respond_with(@relation) do |format|
-            format.html { redirect_to location_after_destroy }
+            format.html { redirect_back(fallback_location: admin_product_path(@product)) }
           end
         end
       end
