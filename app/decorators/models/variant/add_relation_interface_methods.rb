@@ -9,6 +9,10 @@ module SolidusRelatedProducts
         product.updated_at
       end
 
+      def variant
+        self
+      end
+
       def available?
         product.available?
       end

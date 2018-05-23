@@ -27,6 +27,12 @@ RSpec.describe Spree::Product, type: :model do
       end
     end
 
+    describe '.variant' do
+      it 'returns master variant' do
+        expect(@product.variant).to eq(@product.master)
+      end
+    end
+
     describe '.relations' do
       it 'has many relations' do
         relation1 = create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)

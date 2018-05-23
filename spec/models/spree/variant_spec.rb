@@ -6,4 +6,10 @@ RSpec.describe Spree::Variant, type: :model do
       expect(variant.cache_key).to eq(variant.product.updated_at)
     end
   end
+
+  describe '.variant' do
+    it 'returns self' do
+      expect(variant.variant).to eq(variant)
+    end
+  end
 end

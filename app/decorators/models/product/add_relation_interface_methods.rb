@@ -9,6 +9,10 @@ module SolidusRelatedProducts
         updated_at
       end
 
+      def variant
+        master
+      end
+
       Spree::Product.prepend self
     end
   end
