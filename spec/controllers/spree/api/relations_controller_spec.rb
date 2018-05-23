@@ -6,10 +6,10 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
   let!(:product) { create(:product) }
   let!(:other1)  { create(:product) }
 
-  let!(:relation_type) { create(:relation_type) }
+  let!(:relation_type) { create(:product_relation_type) }
   let!(:relation) do
     create(
-      :relation,
+      :product_relation,
       relatable: product,
       related_to: other1,
       relation_type: relation_type,
@@ -78,7 +78,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(
-          :relation, relatable: product, related_to: other2, relation_type: relation_type, position: 1
+          :product_relation, relatable: product, related_to: other2, relation_type: relation_type, position: 1
         )
 
         expect {

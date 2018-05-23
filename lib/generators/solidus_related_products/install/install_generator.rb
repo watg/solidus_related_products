@@ -3,6 +3,10 @@ module SolidusRelatedProducts
     class InstallGenerator < Rails::Generators::Base
       class_option :auto_run_migrations, type: :boolean, default: false
 
+      def add_javascripts
+        append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_related_products\n"
+      end
+
       def add_migrations
         run 'bundle exec rake railties:install:migrations FROM=solidus_related_products'
       end
