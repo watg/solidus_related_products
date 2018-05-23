@@ -1,8 +1,12 @@
 module SolidusRelatedProducts
   module Variant
-    module AddRelationMethods
+    module AddRelationInterfaceMethods
       def name_for_relation
         descriptive_name
+      end
+
+      def cache_key
+        product.updated_at
       end
 
       def available?

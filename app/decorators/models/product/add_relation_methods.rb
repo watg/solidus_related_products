@@ -40,10 +40,6 @@ module SolidusRelatedProducts
         end
       end
 
-      def name_for_relation
-        name
-      end
-
       # Decides if there is a relevant Spree::RelationType related to this class
       # which should be returned for this method.
       #

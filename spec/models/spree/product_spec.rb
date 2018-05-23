@@ -21,6 +21,12 @@ RSpec.describe Spree::Product, type: :model do
       @relation_type = create(:product_relation_type, name: 'Related Products')
     end
 
+    describe '.cache_key' do
+      it 'returns updated_at attribute' do
+        expect(@product.cache_key).to eq(@product.updated_at)
+      end
+    end
+
     describe '.relations' do
       it 'has many relations' do
         relation1 = create(:product_relation, relatable: @product, related_to: other1, relation_type: @relation_type)
