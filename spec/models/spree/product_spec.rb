@@ -21,9 +21,9 @@ RSpec.describe Spree::Product, type: :model do
       @relation_type = create(:product_relation_type, name: 'Related Products')
     end
 
-    describe '.cache_key' do
+    describe '.related_cache_key' do
       it 'returns updated_at attribute' do
-        expect(@product.cache_key).to eq(@product.updated_at)
+        expect(@product.related_cache_key).to eq(@product.updated_at)
       end
     end
 
