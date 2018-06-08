@@ -5,7 +5,7 @@ module SolidusRelatedProducts
         name
       end
 
-      def cache_key
+      def related_cache_key
         updated_at
       end
 
