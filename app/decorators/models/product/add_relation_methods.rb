@@ -8,6 +8,7 @@ module SolidusRelatedProducts
 
         # When a Spree::Product is destroyed, we also want to destroy all Spree::Relations
         # "from" it as well as "to" it.
+        base.after_discard :destroy_product_relations if base.respond_to?(:after_discard)
         base.after_destroy :destroy_product_relations
       end
 
