@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'solidus_support'
   s.add_runtime_dependency 'deface', '~> 1.0'
 
-  s.add_development_dependency 'factory_bot', '~> 4.5'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails', '~> 3.4'
   s.add_development_dependency 'sqlite3'
