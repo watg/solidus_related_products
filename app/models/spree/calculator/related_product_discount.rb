@@ -1,7 +1,7 @@
 module Spree
   class Calculator::RelatedProductDiscount < Spree::Calculator
     def self.description
-      Spree.t(:related_product_discount)
+      I18n.t('spree.related_product_discount')
     end
 
     def compute(object)
