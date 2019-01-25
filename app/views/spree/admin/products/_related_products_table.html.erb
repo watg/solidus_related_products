@@ -9,9 +9,9 @@
   <thead>
     <tr data-hook="products_header">
       <th></th>
-      <th><%= Spree.t(:name) %></th>
-      <th><%= Spree.t(:type) %></th>
-      <th><%= Spree.t(:discount_amount) %></th>
+      <th><%= I18n.t('spree.name') %></th>
+      <th><%= I18n.t('spree.type') %></th>
+      <th><%= I18n.t('spree.discount_amount') %></th>
       <th class="actions"></th>
     </tr>
   </thead>
@@ -26,7 +26,7 @@
         <td>
           <%= form_for relation, url: admin_product_relation_path(relation.relatable, relation) do |f| %>
             <%= f.text_field :discount_amount, class: 'form-control text-center' %>
-            <%= f.button Spree.t(:update), type: 'submit', class: 'button btn-primary' %>
+            <%= f.button I18n.t('spree.update'), type: 'submit', class: 'button btn-primary' %>
           <% end %>
         </td>
         <td class="actions">

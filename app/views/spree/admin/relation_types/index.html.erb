@@ -18,9 +18,9 @@
     </colgroup>
     <thead>
       <tr data-hook="admin_relation_types_index_headers">
-        <th><%= Spree.t(:name) %></th>
-        <th><%= Spree.t(:applies_to) %></th>
-        <th><%= Spree.t(:description) %></th>
+        <th><%= I18n.t('spree.name') %></th>
+        <th><%= I18n.t('spree.applies_to') %></th>
+        <th><%= I18n.t('spree.description') %></th>
         <th class="actions" data-hook="admin_pages_index_header_actions"></th>
       </tr>
     </thead>
@@ -40,7 +40,7 @@
   </table>
 <% else %>
   <div class="alert alert-warning no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: Spree::RelationType.model_name.human(count: :many)) %>,
-    <%= link_to Spree.t(:add_one), spree.new_admin_relation_type_path %>!
+    <%= I18n.t('spree.no_resource_found', resource: Spree::RelationType.model_name.human(count: :many)) %>,
+    <%= link_to I18n.t('spree.add_one'), spree.new_admin_relation_type_path %>!
   </div>
 <% end %>
