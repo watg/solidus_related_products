@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails', '~> 3.4'
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'sqlite3', '~> 1.3.6'
   s.add_development_dependency 'capybara', '~> 2.5'
   s.add_development_dependency 'capybara-screenshot', '~> 1.0'
   s.add_development_dependency 'poltergeist', '~> 1.9'
