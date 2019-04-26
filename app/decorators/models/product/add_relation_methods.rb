@@ -47,6 +47,7 @@ module SolidusRelatedProducts
       #
       # If so, it calls relations_for_relation_type. Otherwise it passes
       # it up the inheritance chain.
+      # rubocop:disable Style/MissingRespondToMissing
       def method_missing(method, *args)
         # Fix for Ruby 1.9
         raise NoMethodError if method == :to_ary
@@ -58,6 +59,7 @@ module SolidusRelatedProducts
           relations_for_relation_type(relation_type)
         end
       end
+      # rubocop:enable Style/MissingRespondToMissing
 
       def has_related_products?(relation_method)
         find_relation_type(relation_method).present?
