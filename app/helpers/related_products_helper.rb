@@ -9,7 +9,7 @@ module RelatedProductsHelper
     end
   end
 
-  def frontend_related_resource_url(object, options = {})
+  def frontend_related_resource_url(object, _options = {})
     if object.instance_of? Spree::Product
       product_path(object)
     elsif object.instance_of? Spree::Variant

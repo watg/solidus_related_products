@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Spree
   class Calculator::RelatedProductDiscount < Spree::Calculator
     def self.description
@@ -7,18 +9,21 @@ module Spree
     def compute(object)
       if object.is_a?(Array)
         return if object.empty?
+
         order = object.first.order
       else
         order = object
       end
 
       return unless eligible?(order)
+
       total = order.line_items.inject(0) do |sum, line_item|
         relations = Spree::Relation.where(*discount_query(line_item))
         discount_applies_to = relations.map { |rel| rel.related_to.variant }
 
         order.line_items.each do |li|
           next li unless discount_applies_to.include? li.variant
+
           discount = relations.detect { |rel| rel.related_to.variant == li.variant }.discount_amount
           sum += if li.quantity < line_item.quantity
                    (discount * li.quantity)

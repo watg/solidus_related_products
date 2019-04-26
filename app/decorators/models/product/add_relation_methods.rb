@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusRelatedProducts
   module Product
     module AddRelationMethods

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusRelatedProducts
   module Generators
     class InstallGenerator < Rails::Generators::Base

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Api::RelationsController, type: :controller do
   stub_authorization!
   render_views

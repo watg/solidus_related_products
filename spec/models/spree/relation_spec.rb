@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Relation, type: :model do
   context 'relations' do
     it { is_expected.to belong_to(:relation_type) }

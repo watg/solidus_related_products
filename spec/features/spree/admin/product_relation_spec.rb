@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.feature 'Admin Product Relation', :js do
   stub_authorization!
 

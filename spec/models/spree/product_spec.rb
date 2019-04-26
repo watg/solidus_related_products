@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Product, type: :model do
   context 'class' do
     describe '.relation_types' do
