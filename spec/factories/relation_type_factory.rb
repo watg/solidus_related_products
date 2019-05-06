@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :product_relation_type, class: Spree::RelationType do
     name       { ('A'..'Z').to_a.sample(6).join }

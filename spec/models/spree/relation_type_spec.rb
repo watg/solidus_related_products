@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::RelationType, type: :model do
   context 'relations' do
     it { is_expected.to have_many(:relations).dependent(:destroy) }

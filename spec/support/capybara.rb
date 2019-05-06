@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'capybara/rspec'
 require 'capybara/rails'
 require 'capybara/poltergeist'
@@ -11,7 +13,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :poltergeist
 
   Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
-
 
   config.before(:each, :js) do
     if Capybara.javascript_driver == :selenium

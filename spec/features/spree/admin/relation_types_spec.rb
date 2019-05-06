@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.feature 'Admin Relation Types', :js do
   stub_authorization!
 

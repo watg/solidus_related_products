@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Calculator::RelatedProductDiscount, type: :model do
   subject { described_class.new }
 

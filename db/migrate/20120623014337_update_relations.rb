@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateRelations < SolidusSupport::Migration[4.2]
   def up
     Spree::Relation.where(relatable_type: 'Product').update_all(relatable_type: 'Spree::Product')

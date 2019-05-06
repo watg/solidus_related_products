@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Variant, type: :model do
   let(:variant) { create(:variant) }
 

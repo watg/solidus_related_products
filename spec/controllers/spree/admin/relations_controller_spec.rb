@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Spree::Admin::RelationsController, type: :controller do
   stub_authorization!
 
