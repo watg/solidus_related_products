@@ -36,10 +36,31 @@ module SolidusRelatedProducts
         # This could also feasibly be overridden to sort the result in a
         # particular order, or restrict the number of items returned.
         def relation_filter
-          where('spree_products.deleted_at' => nil)
+          Spree::Deprecation.warn "#{to_s}.relation_filter is deprecated and will be removed. Use #{to_s}.relation_fiter_for_product instead."
+          relation_filter_for_products
+        end
+
+        def relation_filter_for_products
+          Spree::Product.where('spree_products.deleted_at' => nil)
             .where('spree_products.available_on IS NOT NULL')
             .where('spree_products.available_on <= ?', Time.now)
             .references(self)
+        end
+
+        def relation_filter_for_variants
+          Spree::Variant.joins(:product)
+            .where('spree_products.deleted_at' => nil)
+            .where('spree_products.available_on IS NOT NULL')
+            .where('spree_products.available_on <= ?', Time.now)
+            .references(self)
+        end
+
+        def relation_filter_for_relation_type(relation_type)
+          if relation_type.applies_to == 'Spree::Product'
+            relation_filter_for_products
+          elsif relation_type.applies_to == 'Spree::Variant'
+            relation_filter_for_variants
+          end
         end
       end
 
@@ -84,19 +105,19 @@ module SolidusRelatedProducts
         nil
       end
 
-      # Returns all the Products that are related to this record for the given RelationType.
+      # Returns all the Products or Variants that are related to this record for the given RelationType.
       #
       # Uses the Relations to find all the related items, and then filters
-      # them using +Product.relation_filter+ to remove unwanted items.
+      # them using +relation_filter_for_relation_type+ to remove unwanted items.
       def relations_for_relation_type(relation_type)
         # Find all the relations that belong to us for this RelationType, ordered by position
         related_ids = relations.where(relation_type_id: relation_type.id).order(:position).select(:related_to_id)
 
         # Construct a query for all these records
-        result = self.class.where(id: related_ids)
+        result = relation_type.applies_to.constantize.where(id: related_ids)
 
         # Merge in the relation_filter if it's available
-        result = result.merge(self.class.relation_filter) if relation_filter
+        result = result.merge(relation_filter_for_relation_type(relation_type)) if relation_filter_for_relation_type(relation_type)
 
         # make sure results are in same order as related_ids array  (position order)
         if result.present?
@@ -106,11 +127,11 @@ module SolidusRelatedProducts
         result
       end
 
-      # Simple accessor for the class-level relation_filter.
+      # Simple accessor for the class-level relation_filter_for_relation_type.
       # Could feasibly be overloaded to filter results relative to this
       # record (eg. only higher priced items)
-      def relation_filter
-        self.class.relation_filter
+      def relation_filter_for_relation_type(relation_type)
+        self.class.relation_filter_for_relation_type(relation_type)
       end
 
       def format_name(name)
