@@ -11,14 +11,16 @@
 <% if @relation_types.any? %>
   <table class="index" id="listing_relation_types" data-hook>
     <colgroup>
-      <col style="width: 20%" />
-      <col style="width: 20%" />
+      <col style="width: 15%" />
+      <col style="width: 15%" />
+      <col style="width: 15%" />
       <col style="width: 40%" />
-      <col style="width: 20%" />
+      <col style="width: 15%" />
     </colgroup>
     <thead>
       <tr data-hook="admin_relation_types_index_headers">
         <th><%= I18n.t('spree.name') %></th>
+        <th><%= I18n.t('spree.applies_from') %></th>
         <th><%= I18n.t('spree.applies_to') %></th>
         <th><%= I18n.t('spree.description') %></th>
         <th class="actions" data-hook="admin_pages_index_header_actions"></th>
@@ -28,6 +30,7 @@
       <% @relation_types.each do |relation_type| %>
         <tr id="<%= spree_dom_id relation_type %>" data-hook="admin_relation_types_index_row" class="<%= cycle('odd', 'even') %>">
           <td><%= relation_type.name %></td>
+          <td><%= relation_type.applies_from %></td>
           <td><%= relation_type.applies_to %></td>
           <td><%= relation_type.description %></td>
           <td class="actions" data-hook="admin_relation_types_index_row_actions">

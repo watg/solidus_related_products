@@ -1,44 +1,24 @@
 # frozen_string_literal: true
 
 module SolidusRelatedProducts
-  module Product
+  module Variant
     module AddRelationMethods
       def self.prepended(base)
         base.extend ClassMethods
 
         base.has_many :relations, -> { order(:position) }, as: :relatable
 
-        # When a Spree::Product is destroyed, we also want to destroy all Spree::Relations
+        # When a Spree::Variant is destroyed, we also want to destroy all Spree::Relations
         # "from" it as well as "to" it.
-        base.after_discard :destroy_product_relations if base.respond_to?(:after_discard)
-        base.after_destroy :destroy_product_relations
+        base.after_discard :destroy_variant_relations if base.respond_to?(:after_discard)
+        base.after_destroy :destroy_variant_relations
       end
 
       module ClassMethods
         # Returns all the Spree::RelationType's which apply_to this class.
         def relation_types
           Spree::RelationType.where(applies_from: to_s)
-            .where('applies_to IN (?)', [to_s, Spree::Variant.to_s]).order(:name)
-        end
-
-        # The AREL Relations that will be used to filter the resultant items.
-        #
-        # By default this will remove any items which are deleted, or not yet available.
-        #
-        # You can override this method to fine tune the filter. For example,
-        # to only return Spree::Product's with more than 2 items in stock, you could
-        # do the following:
-        #
-        #   def self.relation_filter
-        #     set = super
-        #     set.where('spree_products.count_on_hand >= 2')
-        #   end
-        #
-        # This could also feasibly be overridden to sort the result in a
-        # particular order, or restrict the number of items returned.
-        def relation_filter
-          Spree::Deprecation.warn "#{to_s}.relation_filter is deprecated and will be removed. Use #{to_s}.relation_fiter_for_product instead."
-          relation_filter_for_products
+            .where('applies_to IN (?)', [to_s, Spree::Product.to_s]).order(:name)
         end
 
         def relation_filter_for_products
@@ -88,10 +68,10 @@ module SolidusRelatedProducts
         find_relation_type(relation_method).present?
       end
 
-      def destroy_product_relations
-        # First we destroy relationships "from" this Product to others.
+      def destroy_variant_relations
+        # First we destroy relationships "from" this Variant to others.
         relations.destroy_all
-        # Next we destroy relationships "to" this Product.
+        # Next we destroy relationships "to" this Variant.
         Spree::Relation.where(related_to_type: self.class.to_s).where(related_to_id: id).destroy_all
       end
 
@@ -139,7 +119,7 @@ module SolidusRelatedProducts
         name.to_s.downcase.tr(' ', '_').pluralize
       end
 
-      Spree::Product.prepend self
+      Spree::Variant.prepend self
     end
   end
 end

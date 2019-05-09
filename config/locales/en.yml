@@ -10,10 +10,11 @@ en:
         other: Relation Types
   spree:
     admin:
-      tab: 
+      tab:
         relation_types: Relation Types
     new_relation_type: New Relation Type
     related_product_discount: Related Product Discount
+    applies_from: Applies From
     applies_to: Applies To
     related_products: Related Products
     add_related_product: Add Related Product

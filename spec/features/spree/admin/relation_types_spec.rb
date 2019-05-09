@@ -17,6 +17,7 @@ RSpec.feature 'Admin Relation Types', :js do
       expect(current_path).to eq spree.new_admin_relation_type_path
 
       fill_in 'Name', with: 'Gears'
+      fill_in 'Applies From', with: 'Spree:Products'
       fill_in 'Applies To', with: 'Spree:Products'
 
       click_button 'Create'
@@ -33,6 +34,17 @@ RSpec.feature 'Admin Relation Types', :js do
       click_button 'Create'
 
       expect(page).to have_text 'Name can\'t be blank'
+    end
+
+    scenario 'shows validation errors with blank :applies_from' do
+      click_link 'New Relation Type'
+      expect(current_path).to eq spree.new_admin_relation_type_path
+
+      fill_in 'Name', with: 'Gears'
+      fill_in 'Applies From', with: ''
+      click_button 'Create'
+
+      expect(page).to have_text 'Applies from can\'t be blank'
     end
 
     scenario 'shows validation errors with blank :applies_to' do
@@ -60,7 +72,8 @@ RSpec.feature 'Admin Relation Types', :js do
         within_row(1) do
           expect(column_text(1)).to eq 'Gears'
           expect(column_text(2)).to eq 'Spree::Product'
-          expect(column_text(3)).to eq ''
+          expect(column_text(3)).to eq 'Spree::Product'
+          expect(column_text(4)).to eq ''
         end
       end
     end
