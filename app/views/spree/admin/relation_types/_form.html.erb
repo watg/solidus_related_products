@@ -5,6 +5,11 @@
       <%= f.text_field :name, class: 'form-control' %>
       <%= error_message_on :relation_type, :name %>
     </div>
+    <div data-hook="applies_from" class="form-group">
+      <%= f.label :applies_from, I18n.t('spree.applies_from') %> <span class="required">*</span>
+      <%= f.text_field :applies_from, value: f.object.nil? ? 'Spree::Product' : f.object.applies_from, class: 'form-control' %>
+      <%= error_message_on :relation_type, :applies_from %>
+    </div>
     <div data-hook="applies_to" class="form-group">
       <%= f.label :applies_to, I18n.t('spree.applies_to') %> <span class="required">*</span>
       <%= f.text_field :applies_to, value: f.object.nil? ? 'Spree::Product' : f.object.applies_to, class: 'form-control' %>

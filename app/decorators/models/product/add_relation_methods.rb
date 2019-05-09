@@ -17,7 +17,8 @@ module SolidusRelatedProducts
       module ClassMethods
         # Returns all the Spree::RelationType's which apply_to this class.
         def relation_types
-          Spree::RelationType.where('applies_to IN (?)', [to_s, Spree::Variant.to_s]).order(:name)
+          Spree::RelationType.where(applies_from: to_s)
+            .where('applies_to IN (?)', [to_s, Spree::Variant.to_s]).order(:name)
         end
 
         # The AREL Relations that will be used to filter the resultant items.

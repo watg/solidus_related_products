@@ -7,6 +7,11 @@ RSpec.describe Spree::Product, type: :model do
         relation_type = create(:product_relation_type)
         expect(described_class.relation_types).to include(relation_type)
       end
+
+      it 'does not return the RelationTypes for Variant' do
+        relation_type = create(:product_relation_type, applies_from: 'Spree::Variant')
+        expect(described_class.relation_types).to_not include(relation_type)
+      end
     end
   end
 
