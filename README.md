@@ -6,7 +6,7 @@
 
 This extension provides a generic way for you to define different types of relationships between your products, by defining a RelationType for each type of relationship you'd like to maintain.
 
-You can manage RelationTypes via the admin configuration menu, and you can maintain product relationships via __Related Products__ tab on the edit product UI.
+You can manage RelationTypes via the admin configuration menu, and you can maintain product relationships via __Related Products__ tab on the edit product UI or via __Related Products__ section on the edit variant UI.
 
 ## Installation
 
@@ -32,9 +32,20 @@ $ bundle exec rails g solidus_related_products:install
 
 ## Relation Types
 
+You can create four different RelationTypes:
+
+| Applies From | Applies To |
+| - | - |
+| Spree::Product | Spree::Product |
+| Spree::Product | Spree::Variant |
+| Spree::Variant | Spree::Product |
+| Spree::Variant | Spree::Variant |
+
+The following examples use a `Spree::Product -> Spree::Product` relation type.
+
 When you create a RelationType you can access that set of related products by referencing the relation_type name, see below for an example:
 ```ruby
-rt = Spree::RelationType.create(name: 'Accessories', applies_to: 'Spree::Product')
+rt = Spree::RelationType.create(name: 'Accessories', applies_from: 'Spree::Product', applies_to: 'Spree::Product')
  => #<Spree::RelationType id: 4, name: "Accessories" ...>
 product = Spree::Product.last
  => #<Spree::Product id: 1060500592 ...>
