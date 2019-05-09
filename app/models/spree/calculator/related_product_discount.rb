@@ -46,9 +46,11 @@ module Spree
 
     def discount_query(line_item)
       [
-        'discount_amount <> 0.0 AND relatable_type = ? AND relatable_id = ?',
+        'discount_amount <> 0.0 AND ((relatable_type = ? AND relatable_id = ?) OR (relatable_type = ? AND relatable_id = ?))',
         'Spree::Product',
-        line_item.variant.product.id
+        line_item.variant.product.id,
+        'Spree::Variant',
+        line_item.variant.id
       ]
     end
   end
