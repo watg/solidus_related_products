@@ -10,6 +10,13 @@ Spree::Core::Engine.routes.draw do
           post :update_positions
         end
       end
+      resources :variants, only: [] do
+        resources :relations, module: 'variants' do
+          collection do
+            post :update_positions
+          end
+        end
+      end
     end
   end
 
@@ -19,6 +26,13 @@ Spree::Core::Engine.routes.draw do
       resources :relations do
         collection do
           post :update_positions
+        end
+      end
+      resources :variants, only: [] do
+        resources :relations, module: 'variants' do
+          collection do
+            post :update_positions
+          end
         end
       end
     end

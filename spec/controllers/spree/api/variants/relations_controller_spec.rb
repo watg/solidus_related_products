@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-RSpec.describe Spree::Api::RelationsController, type: :controller do
+RSpec.describe Spree::Api::Variants::RelationsController, type: :controller do
   stub_authorization!
   render_views
 
   let(:user)     { create(:user) }
-  let!(:product) { create(:product) }
+  let!(:variant) { create(:variant) }
+  let(:product) { variant.product }
   let!(:other1)  { create(:product) }
 
-  let!(:relation_type) { create(:product_relation_type) }
+  let!(:relation_type) { create(:product_relation_type, applies_from: 'Spree::Variant') }
   let!(:relation) do
     create(
       :product_relation,
-      relatable: product,
+      relatable: variant,
       related_to: other1,
       relation_type: relation_type,
       position: 0
@@ -34,6 +35,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       {
         format: :json,
         product_id: product.id,
+        variant_id: variant.id,
         relation: {
           related_to_id: other1.id,
           relation_type_id: relation_type.id
@@ -49,7 +51,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       end
 
       it 'responds 422 error with invalid params' do
-        post :create, params: { product_id: product.id, token: user.spree_api_key, format: :json }
+        post :create, params: { product_id: product.id, variant_id: variant.id, token: user.spree_api_key, format: :json }
         expect(response.status).to eq(422)
       end
     end
@@ -59,6 +61,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
         params = {
           format: :json,
           product_id: product.id,
+          variant_id: variant.id,
           id: relation.id,
           relation: { discount_amount: 2.0 }
         }
@@ -71,7 +74,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
     context '#destroy with' do
       it 'records successfully' do
         expect {
-          delete :destroy, params: { id: relation.id, product_id: product.id, token: user.spree_api_key, format: :json }
+          delete :destroy, params: { id: relation.id, product_id: product.id, variant_id: variant.id, token: user.spree_api_key, format: :json }
         }.to change(Spree::Relation, :count).by(-1)
       end
     end
@@ -80,12 +83,13 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(
-          :product_relation, relatable: product, related_to: other2, relation_type: relation_type, position: 1
+          :product_relation, relatable: variant, related_to: other2, relation_type: relation_type, position: 1
         )
 
         expect {
           params = {
             product_id: product.id,
+            variant_id: variant.id,
             id: relation.id,
             positions: { relation.id => '1', relation2.id => '0' },
             format: :json

@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-RSpec.describe Spree::Admin::RelationsController, type: :controller do
+RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
   stub_authorization!
 
   let(:user)     { create(:user) }
-  let!(:product) { create(:product) }
+  let!(:variant) { create(:variant) }
+  let(:product) { variant.product }
   let!(:other1)  { create(:product) }
 
-  let!(:relation_type) { create(:product_relation_type) }
+  let!(:relation_type) { create(:product_relation_type, applies_from: 'Spree::Variant') }
   let!(:relation) do
     create(
       :product_relation,
-      relatable: product,
+      relatable: variant,
       related_to: other1,
       relation_type: relation_type,
       position: 0
@@ -33,6 +34,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       {
         format: :js,
         product_id: product.id,
+        variant_id: variant.id,
         relation: {
           related_to_id: other1.id,
           relation_type_id: relation_type.id
@@ -40,7 +42,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       }
     end
 
-    let(:invalid_params) { { format: :js, product_id: product.id } }
+    let(:invalid_params) { { format: :js, product_id: product.id, variant_id: variant.id } }
 
     context '#create' do
       it 'is not routable' do
@@ -68,15 +70,15 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
 
     context '#update' do
       it 'redirects to product/related url' do
-        put :update, params: { product_id: product.id, id: relation.id, relation: { discount_amount: 2.0 } }
-        expect(response).to redirect_to(spree.admin_product_path(relation.relatable) + '/related')
+        put :update, params: { product_id: product.id, variant_id: variant.id, id: relation.id, relation: { discount_amount: 2.0 } }
+        expect(response).to redirect_to(spree.edit_admin_product_variant_path(relation.relatable.product, relation.relatable))
       end
     end
 
     context '#destroy' do
       it 'records successfully' do
         expect {
-          delete :destroy, params: { id: relation.id, product_id: product.id, format: :js }
+          delete :destroy, params: { id: relation.id, product_id: product.id, variant_id: variant.id, format: :js }
         }.to change(Spree::Relation, :count).by(-1)
       end
     end
@@ -85,12 +87,13 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(
-          :product_relation, relatable: product, related_to: other2, relation_type: relation_type, position: 1
+          :product_relation, relatable: variant, related_to: other2, relation_type: relation_type, position: 1
         )
 
         expect {
           params = {
             product_id: product.id,
+            variant_id: variant.id,
             id: relation.id,
             positions: { relation.id => '1', relation2.id => '0' },
             format: :js
