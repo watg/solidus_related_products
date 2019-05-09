@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
-RSpec.feature 'Admin Product Relation', :js do
+RSpec.feature 'Admin Variant Relation', :js do
   stub_authorization!
 
-  given!(:product) { create(:product) }
+  given!(:variant) { create(:variant) }
   given!(:other_product)   { create(:product) }
   given!(:other_variant)   { create(:variant, is_master: false) }
 
-  given!(:product_relation_type) { create(:product_relation_type, name: 'Related Products') }
-  given!(:variant_relation_type) { create(:variant_relation_type, name: 'Related Variants') }
+  given!(:product_relation_type) { create(:product_relation_type, name: 'Related Products', applies_from: 'Spree::Variant') }
+  given!(:variant_relation_type) { create(:variant_relation_type, name: 'Related Variants', applies_from: 'Spree::Variant') }
 
   background do
-    visit spree.edit_admin_product_path(product)
-    click_link 'Related Products'
+    visit spree.edit_admin_product_variant_path(variant.product, variant)
   end
 
   scenario 'create relation with product' do
     expect(page).to have_text /ADD RELATED PRODUCT/i
-    expect(page).to have_text product.name
+    expect(page).to have_text variant.name
 
     within('#add-line-item') do
       select2_search product_relation_type.name, from: 'Type'
@@ -30,13 +29,12 @@ RSpec.feature 'Admin Product Relation', :js do
       expect(page).to have_field('relation_discount_amount', with: '0.8')
       expect(column_text(2)).to eq other_product.name
       expect(column_text(3)).to eq product_relation_type.name
-      expect(column_text(3)).to eq product_relation_type.name
     end
   end
 
   scenario 'create relation with variant' do
     expect(page).to have_text /ADD RELATED PRODUCT/i
-    expect(page).to have_text product.name
+    expect(page).to have_text variant.name
 
     within('#add-line-item') do
       select2_search variant_relation_type.name, from: 'Type'
@@ -49,7 +47,6 @@ RSpec.feature 'Admin Product Relation', :js do
       expect(page).to have_field('relation_discount_amount', with: '0.8')
       expect(column_text(2)).to eq other_variant.name_for_relation
       expect(column_text(3)).to eq variant_relation_type.name
-      expect(column_text(3)).to eq variant_relation_type.name
     end
   end
 
@@ -57,7 +54,7 @@ RSpec.feature 'Admin Product Relation', :js do
     given!(:relation) do
       create(
         :product_relation,
-        relatable: product,
+        relatable: variant,
         related_to: other_product,
         relation_type: product_relation_type,
         discount_amount: 0.5
@@ -65,13 +62,12 @@ RSpec.feature 'Admin Product Relation', :js do
     end
 
     background do
-      visit spree.edit_admin_product_path(product)
-      click_link 'Related Products'
+      visit spree.edit_admin_product_variant_path(variant.product, variant)
     end
 
     scenario 'ensure content exist' do
       expect(page).to have_text /ADD RELATED PRODUCT/i
-      expect(page).to have_text product.name
+      expect(page).to have_text variant.name
       expect(page).to have_text other_product.name
 
       within_row(1) do
