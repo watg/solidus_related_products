@@ -3,6 +3,7 @@ class CreateRelation
     @relatedToInputSelector = '#add_related_to_name'
     @relationTypeInputSelector = '#add_type'
     @discountInputSelector = '#add_discount'
+    @descriptionInputSelector = '#add_description'
 
     @setupListeners()
 
@@ -21,7 +22,8 @@ class CreateRelation
         data: {
           'relation[related_to_id]': $(@relatedToInputSelector).val(),
           'relation[relation_type_id]': $(@relationTypeInputSelector).val(),
-          'relation[discount_amount]' : $(@discountInputSelector).val()
+          'relation[discount_amount]' : $(@discountInputSelector).val(),
+          'relation[description]' : $(@descriptionInputSelector).val()
         }
       })
 

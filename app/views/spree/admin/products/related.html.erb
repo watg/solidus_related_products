@@ -12,7 +12,7 @@
     <fieldset>
       <legend><%= I18n.t('spree.add_related_product') %></legend>
       <div data-hook="admin_product_related_products_add" class="row">
-        <div id="related_product_type" class="col-4">
+        <div id="related_product_type" class="col-3">
           <div class="form-group">
             <%= label_tag :add_type, I18n.t('spree.type') %>
             <%= select_tag :add_type, options_for_select(
@@ -21,14 +21,21 @@
           </div>
         </div>
 
-        <div id="related_product_name" class="col-4">
+        <div id="related_product_name" class="col-3">
           <div class="form-group">
             <%= label_tag :add_related_to_name, I18n.t('spree.name_or_sku_short') %>
             <%= hidden_field_tag :add_related_to_name, '', class: 'related_to_autocomplete' %>
           </div>
         </div>
 
-        <div id="related_product_discount" class="col-4">
+        <div id="related_product_description" class="col-3">
+          <div class="form-group">
+            <%= label_tag :add_description, I18n.t('spree.description') %>
+            <%= text_field_tag :add_description, '', class: 'form-control text-center' %>
+          </div>
+        </div>
+
+        <div id="related_product_discount" class="col-3">
           <div class="form-group">
             <%= label_tag :add_discount, I18n.t('spree.discount_amount') %>
             <%= text_field_tag :add_discount, 0.0, class: 'form-control text-center' %>
