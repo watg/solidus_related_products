@@ -70,7 +70,7 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
 
     context '#update' do
       it 'redirects to product/related url' do
-        put :update, params: { product_id: product.id, variant_id: variant.id, id: relation.id, relation: { discount_amount: 2.0 } }
+        put :update, params: { product_id: product.id, variant_id: variant.id, id: relation.id, relation: { discount_amount: 2.0, description: 'Related Description' } }
         expect(response).to redirect_to(spree.edit_admin_product_variant_path(relation.relatable.product, relation.relatable))
       end
     end

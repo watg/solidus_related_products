@@ -19,9 +19,10 @@ module Spree
 
       def update
         @relation = Relation.find(params[:id])
-        @relation.update_attribute :discount_amount, relation_params[:discount_amount] || 0
-
-        redirect_to(related_admin_product_url(@relation.relatable))
+        if @relation.update_attributes(relation_params)
+          flash[:success] = flash_message_for(@relation, :successfully_updated)
+          redirect_to(related_admin_product_url(@relation.relatable))
+        end
       end
 
       def update_positions
@@ -65,6 +66,7 @@ module Spree
           :relatable,
           :related_to_id,
           :discount_amount,
+          :description,
           :relation_type_id,
           :position
         ]
