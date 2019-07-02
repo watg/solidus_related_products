@@ -1,2 +1,3 @@
 //= require spree/backend
-//= require_tree .
+//= require spree/backend/create_relation
+//= require spree/backend/related_to_autocomplete
