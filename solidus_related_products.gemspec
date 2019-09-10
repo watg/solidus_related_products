@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'rspec-activemodel-mocks'
-  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-rails', '~> 4.0.0.beta2'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'simplecov'
