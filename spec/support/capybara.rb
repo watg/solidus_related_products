@@ -13,6 +13,7 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :poltergeist
 
   Capybara.save_and_open_page_path = ENV['CIRCLE_ARTIFACTS'] if ENV['CIRCLE_ARTIFACTS']
+  Capybara.server = :webrick
 
   config.before(:each, :js) do
     if Capybara.javascript_driver == :selenium
