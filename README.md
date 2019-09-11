@@ -1,6 +1,6 @@
 # Related Products
 
-[![Build Status](https://travis-ci.org/solidusio-contrib/solidus_related_products.svg?branch=master)](https://travis-ci.org/solidusio-contrib/solidus_related_products)
+[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_related_products.svg?style=svg)](https://circleci.com/gh/solidusio-contrib/solidus_related_products)
 [![Gem](https://img.shields.io/gem/v/solidus_related_products.svg)](https://rubygems.org/gems/solidus_related_products)
 [![License](http://img.shields.io/badge/license-BSD-yellowgreen.svg)](LICENSE.md)
 

@@ -1,50 +1,32 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-SimpleCov.start do
-  add_filter 'spec'
-  add_group  'Controllers', 'app/controllers'
-  add_group  'Overrides', 'app/overrides'
-  add_group  'Models', 'app/models'
-  add_group  'Libraries', 'lib'
-end
+SimpleCov.start 'rails'
 
 ENV['RAILS_ENV'] ||= 'test'
 
-begin
-  require File.expand_path('dummy/config/environment', __dir__)
-rescue LoadError
-  puts 'Could not load dummy application. Please ensure you have run `bundle exec rake test_app`'
-  exit
-end
+require File.expand_path('dummy/config/environment.rb', __dir__)
 
-require 'rspec/rails'
+require 'solidus_support/extension/feature_helper'
+
 require 'rspec-activemodel-mocks'
-require 'shoulda-matchers'
-require 'ffaker'
-require 'pry'
+
+require 'spree/testing_support/controller_requests'
+require 'spree/api/testing_support/helpers'
+require 'spree/api/testing_support/setup'
+
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
+
+FactoryBot.find_definitions
 
 RSpec.configure do |config|
-  config.fail_fast = false
-  config.filter_run focus: true
-  config.run_all_when_everything_filtered = true
-  config.raise_errors_for_deprecations!
   config.infer_spec_type_from_file_location!
+  config.raise_errors_for_deprecations!
 
-  config.expect_with :rspec do |expectations|
-    expectations.syntax = :expect
-  end
+  config.example_status_persistence_file_path = './spec/examples.txt'
 
-  config.mock_with :rspec do |mocks|
-    mocks.syntax = :expect
-  end
-
-  if defined?(VersionCake::TestHelpers)
-    config.include(VersionCake::TestHelpers, type: :controller)
-    config.before(:each, type: :controller) do
-      set_request_version '', 1
-    end
-  end
+  config.include Spree::TestingSupport::ControllerRequests, type: :controller
+  config.include Spree::TestingSupport::UrlHelpers
+  config.include Spree::Api::TestingSupport::Helpers, type: :controller
+  config.extend Spree::Api::TestingSupport::Setup, type: :controller
 end
-
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |file| require file }
