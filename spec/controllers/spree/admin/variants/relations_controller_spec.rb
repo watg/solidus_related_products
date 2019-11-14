@@ -6,7 +6,7 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
   let(:user)     { create(:user) }
   let!(:variant) { create(:variant) }
   let(:product) { variant.product }
-  let!(:other1)  { create(:product) }
+  let!(:other1) { create(:product) }
 
   let!(:relation_type) { create(:product_relation_type, applies_from: 'Spree::Variant') }
   let!(:relation) do
@@ -21,7 +21,7 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
 
   before { stub_authentication! }
 
-  context '.model_class' do
+  describe '.model_class' do
     it 'responds to model_class as Spree::Relation' do
       expect(controller.send(:model_class)).to eq Spree::Relation
     end
@@ -44,7 +44,7 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
 
     let(:invalid_params) { { format: :js, product_id: product.id, variant_id: variant.id } }
 
-    context '#create' do
+    describe '#create' do
       it 'is not routable' do
         post :create, params: valid_params
         expect(response.status).to be(200)
@@ -68,14 +68,14 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
       end
     end
 
-    context '#update' do
+    describe '#update' do
       it 'redirects to product/related url' do
         put :update, params: { product_id: product.id, variant_id: variant.id, id: relation.id, relation: { discount_amount: 2.0, description: 'Related Description' } }
         expect(response).to redirect_to(spree.edit_admin_product_variant_path(relation.relatable.product, relation.relatable))
       end
     end
 
-    context '#destroy' do
+    describe '#destroy' do
       it 'records successfully' do
         expect {
           delete :destroy, params: { id: relation.id, product_id: product.id, variant_id: variant.id, format: :js }
@@ -83,7 +83,7 @@ RSpec.describe Spree::Admin::Variants::RelationsController, type: :controller do
       end
     end
 
-    context '#update_positions' do
+    describe '#update_positions' do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(

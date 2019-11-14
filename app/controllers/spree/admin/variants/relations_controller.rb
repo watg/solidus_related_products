@@ -12,7 +12,7 @@ module Spree
           @relation = Relation.new(relation_params)
           @relation.relatable = @variant
           @relation.related_to = @relation.relation_type.applies_to
-            .constantize.find(relation_params[:related_to_id])
+                                          .constantize.find(relation_params[:related_to_id])
           @relation.save
 
           respond_with(@relation)
@@ -20,7 +20,7 @@ module Spree
 
         def update
           @relation = Relation.find(params[:id])
-          if @relation.update_attributes(relation_params)
+          if @relation.update(relation_params)
             flash[:success] = flash_message_for(@relation, :successfully_updated)
             redirect_to(edit_admin_product_variant_path(@relation.relatable.product, @relation.relatable))
           end

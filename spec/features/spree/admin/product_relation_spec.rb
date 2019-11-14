@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-RSpec.feature 'Admin Product Relation', :js do
+RSpec.describe 'Admin Product Relation', :js do
   stub_authorization!
 
-  given!(:product) { create(:product) }
-  given!(:other_product)   { create(:product) }
-  given!(:other_variant)   { create(:variant, is_master: false) }
+  let!(:product) { create(:product) }
+  let!(:other_product)   { create(:product) }
+  let!(:other_variant)   { create(:variant, is_master: false) }
 
-  given!(:product_relation_type) { create(:product_relation_type, name: 'Related Products') }
-  given!(:variant_relation_type) { create(:variant_relation_type, name: 'Related Variants') }
+  let!(:product_relation_type) { create(:product_relation_type, name: 'Related Products') }
+  let!(:variant_relation_type) { create(:variant_relation_type, name: 'Related Variants') }
 
-  background do
+  before do
     visit spree.edit_admin_product_path(product)
     click_link 'Related Products'
   end
 
-  scenario 'create relation with product' do
+  it 'create relation with product' do
     expect(page).to have_text /ADD RELATED PRODUCT/i
     expect(page).to have_text product.name
 
@@ -35,7 +35,7 @@ RSpec.feature 'Admin Product Relation', :js do
     end
   end
 
-  scenario 'create relation with variant' do
+  it 'create relation with variant' do
     expect(page).to have_text /ADD RELATED PRODUCT/i
     expect(page).to have_text product.name
 
@@ -56,7 +56,7 @@ RSpec.feature 'Admin Product Relation', :js do
   end
 
   context 'with relations' do
-    given!(:relation) do
+    let!(:relation) do
       create(
         :product_relation,
         relatable: product,
@@ -67,12 +67,12 @@ RSpec.feature 'Admin Product Relation', :js do
       )
     end
 
-    background do
+    before do
       visit spree.edit_admin_product_path(product)
       click_link 'Related Products'
     end
 
-    scenario 'ensure content exist' do
+    it 'ensure content exist' do
       expect(page).to have_text /ADD RELATED PRODUCT/i
       expect(page).to have_text product.name
       expect(page).to have_text other_product.name
@@ -85,7 +85,7 @@ RSpec.feature 'Admin Product Relation', :js do
       end
     end
 
-    scenario 'update discount' do
+    it 'update discount' do
       within_row(1) do
         fill_in 'relation_discount_amount', with: '0.9'
         find('#update_discount_amount').click
@@ -96,7 +96,7 @@ RSpec.feature 'Admin Product Relation', :js do
       end
     end
 
-    scenario 'update description' do
+    it 'update description' do
       within_row(1) do
         fill_in 'relation_description', with: 'Related description updated'
         find('#update_description').click
@@ -108,7 +108,7 @@ RSpec.feature 'Admin Product Relation', :js do
     end
 
     context 'delete' do
-      scenario 'can remove records' do
+      it 'can remove records' do
         expect(page).to have_text other_product.name
 
         accept_alert do

@@ -12,9 +12,9 @@ module Spree
           @relation = @variant.relations.new(relation_params)
           @relation.relatable = @variant
           @relation.related_to = @relation.relation_type.applies_to
-            .constantize.find(relation_params[:related_to_id])
+                                          .constantize.find(relation_params[:related_to_id])
           if @relation.save
-            render json: @relation.to_json, status: 201
+            render json: @relation.to_json, status: :created
           else
             invalid_resource!(@relation)
           end
@@ -22,7 +22,7 @@ module Spree
 
         def update
           authorize! :update, Relation
-          if @relation.update_attributes(relation_params)
+          if @relation.update(relation_params)
             render json: @relation.to_json
           else
             invalid_resource!(@relation)

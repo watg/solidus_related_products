@@ -42,7 +42,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       }
     end
 
-    context '#create' do
+    describe '#create' do
       it 'creates the relation' do
         post :create, params: valid_params
         expect(response.status).to eq(201)
@@ -54,7 +54,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       end
     end
 
-    context '#update' do
+    describe '#update' do
       it 'succesfully updates the relation ' do
         params = {
           format: :json,
@@ -65,11 +65,11 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
         expect {
           put :update, params: params
         }.to change { relation.reload.discount_amount.to_s }.from('0.0').to('2.0')
-          .and change { relation.reload.description }.from(nil).to('Related Description')
+                                                            .and change { relation.reload.description }.from(nil).to('Related Description')
       end
     end
 
-    context '#destroy with' do
+    describe '#destroy with' do
       it 'records successfully' do
         expect {
           delete :destroy, params: { id: relation.id, product_id: product.id, token: user.spree_api_key, format: :json }
@@ -77,7 +77,7 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
       end
     end
 
-    context '#update_positions' do
+    describe '#update_positions' do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(

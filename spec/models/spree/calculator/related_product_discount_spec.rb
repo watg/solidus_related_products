@@ -3,7 +3,7 @@
 RSpec.describe Spree::Calculator::RelatedProductDiscount, type: :model do
   subject { described_class.new }
 
-  context '.description' do
+  describe '.description' do
     it 'outputs relation product discount' do
       expect(subject.description).to eq I18n.t('spree.related_product_discount')
     end

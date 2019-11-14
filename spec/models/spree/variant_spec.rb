@@ -10,7 +10,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'does not return the RelationTypes for Product' do
         relation_type = create(:product_relation_type)
-        expect(described_class.relation_types).to_not include(relation_type)
+        expect(described_class.relation_types).not_to include(relation_type)
       end
     end
   end
@@ -74,15 +74,15 @@ RSpec.describe Spree::Variant, type: :model do
         end
 
         it 'recognizes the method with has_related_products?(method)' do
-          expect(@variant.has_related_products?('related_products')).to be_truthy
+          expect(@variant).to have_related_products('related_products')
         end
 
         it 'does not recognize non-existent methods with has_related_products?(method)' do
-          expect(@variant.has_related_products?('unrelated_products')).not_to be_truthy
+          expect(@variant).not_to have_related_products('unrelated_products')
         end
 
         it 'is the pluralised form of the RelationType name' do
-          @relation_type.update_attributes(name: 'Related Product')
+          @relation_type.update(name: 'Related Product')
           expect(@variant.related_products).to include(other1)
         end
 
@@ -98,23 +98,23 @@ RSpec.describe Spree::Variant, type: :model do
         end
 
         it 'does not return Products that are deleted' do
-          other1.update_attributes(deleted_at: Time.now)
+          other1.update(deleted_at: Time.zone.now)
           expect(@variant.related_products).to be_blank
         end
 
         it 'does not return Products that are not yet available' do
-          other1.update_attributes(available_on: Time.now + 1.hour)
+          other1.update(available_on: Time.zone.now + 1.hour)
           expect(@variant.related_products).to be_blank
         end
 
         it 'does not return Products where available_on are blank' do
-          other1.update_attributes(available_on: nil)
+          other1.update(available_on: nil)
           expect(@variant.related_products).to be_blank
         end
 
         it 'returns all results when .relation_filter_for_relation_type is nil' do
           expect(described_class).to receive(:relation_filter_for_relation_type).and_return(nil)
-          other1.update_attributes(available_on: Time.now + 1.hour)
+          other1.update(available_on: Time.zone.now + 1.hour)
           expect(@variant.related_products).to include(other1)
         end
 
@@ -123,8 +123,8 @@ RSpec.describe Spree::Variant, type: :model do
             relation_filter = described_class.relation_filter_for_products
             expect(described_class).to receive(:relation_filter_for_products).at_least(:once).and_return(relation_filter.includes(:master).where('spree_variants.cost_price > 20'))
 
-            other1.master.update_attributes(cost_price: 10)
-            other2.master.update_attributes(cost_price: 30)
+            other1.master.update(cost_price: 10)
+            other2.master.update(cost_price: 30)
 
             create(:product_relation, relatable: @variant, related_to: other2, relation_type: @relation_type)
             results = @variant.related_products
@@ -139,7 +139,7 @@ RSpec.describe Spree::Variant, type: :model do
         let(:other2) { create(:variant) }
 
         before do
-          @relation_type.update_attributes(applies_to: 'Spree::Variant')
+          @relation_type.update(applies_to: 'Spree::Variant')
           @relation = create(:product_relation, relatable: @variant, related_to: other1, relation_type: @relation_type)
           @variant.reload
         end
@@ -149,15 +149,15 @@ RSpec.describe Spree::Variant, type: :model do
         end
 
         it 'recognizes the method with has_related_products?(method)' do
-          expect(@variant.has_related_products?('related_products')).to be_truthy
+          expect(@variant).to have_related_products('related_products')
         end
 
         it 'does not recognize non-existent methods with has_related_products?(method)' do
-          expect(@variant.has_related_products?('unrelated_products')).not_to be_truthy
+          expect(@variant).not_to have_related_products('unrelated_products')
         end
 
         it 'is the pluralised form of the RelationType name' do
-          @relation_type.update_attributes(name: 'Related Product')
+          @relation_type.update(name: 'Related Product')
           expect(@variant.related_products).to include(other1)
         end
 
@@ -173,23 +173,23 @@ RSpec.describe Spree::Variant, type: :model do
         end
 
         it 'does not return Products that are deleted' do
-          other1.product.update_attributes(deleted_at: Time.now)
+          other1.product.update(deleted_at: Time.zone.now)
           expect(@variant.related_products).to be_blank
         end
 
         it 'does not return Products that are not yet available' do
-          other1.product.update_attributes(available_on: Time.now + 1.hour)
+          other1.product.update(available_on: Time.zone.now + 1.hour)
           expect(@variant.related_products).to be_blank
         end
 
         it 'does not return Products where available_on are blank' do
-          other1.product.update_attributes(available_on: nil)
+          other1.product.update(available_on: nil)
           expect(@variant.related_products).to be_blank
         end
 
         it 'returns all results when .relation_filter_for_relation_type is nil' do
           expect(described_class).to receive(:relation_filter_for_relation_type).and_return(nil)
-          other1.product.update_attributes(available_on: Time.now + 1.hour)
+          other1.product.update(available_on: Time.zone.now + 1.hour)
           expect(@variant.related_products).to include(other1)
         end
 
@@ -198,8 +198,8 @@ RSpec.describe Spree::Variant, type: :model do
             relation_filter = described_class.relation_filter_for_variants
             expect(described_class).to receive(:relation_filter_for_variants).at_least(:once).and_return(relation_filter.where('spree_variants.cost_price > 20'))
 
-            other1.update_attributes(cost_price: 10)
-            other2.update_attributes(cost_price: 30)
+            other1.update(cost_price: 10)
+            other2.update(cost_price: 30)
 
             create(:product_relation, relatable: @variant, related_to: other2, relation_type: @relation_type)
             results = @variant.related_products

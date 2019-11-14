@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAppliesFromToSpreeRelationType < SolidusSupport::Migration[4.2]
   def change
     add_column :spree_relation_types, :applies_from, :string
