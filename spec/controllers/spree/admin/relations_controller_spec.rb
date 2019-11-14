@@ -20,7 +20,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
 
   before { stub_authentication! }
 
-  context '.model_class' do
+  describe '.model_class' do
     it 'responds to model_class as Spree::Relation' do
       expect(controller.send(:model_class)).to eq Spree::Relation
     end
@@ -42,7 +42,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
 
     let(:invalid_params) { { format: :js, product_id: product.id } }
 
-    context '#create' do
+    describe '#create' do
       it 'is not routable' do
         post :create, params: valid_params
         expect(response.status).to be(200)
@@ -66,14 +66,14 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       end
     end
 
-    context '#update' do
+    describe '#update' do
       it 'redirects to product/related url' do
         put :update, params: { product_id: product.id, id: relation.id, relation: { discount_amount: 2.0, description: 'Related Description' } }
         expect(response).to redirect_to(spree.admin_product_path(relation.relatable) + '/related')
       end
     end
 
-    context '#destroy' do
+    describe '#destroy' do
       it 'records successfully' do
         expect {
           delete :destroy, params: { id: relation.id, product_id: product.id, format: :js }
@@ -81,7 +81,7 @@ RSpec.describe Spree::Admin::RelationsController, type: :controller do
       end
     end
 
-    context '#update_positions' do
+    describe '#update_positions' do
       it 'returns the correct position of the related products' do
         other2    = create(:product)
         relation2 = create(

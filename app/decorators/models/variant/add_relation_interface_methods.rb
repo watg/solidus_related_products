@@ -15,9 +15,7 @@ module SolidusRelatedProducts
         self
       end
 
-      def available?
-        product.available?
-      end
+      delegate :available?, to: :product
 
       Spree::Variant.prepend self
     end

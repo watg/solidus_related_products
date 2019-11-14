@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spree/api/testing_support/helpers'
 require 'spree/api/testing_support/setup'
 

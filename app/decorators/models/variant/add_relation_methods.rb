@@ -18,22 +18,22 @@ module SolidusRelatedProducts
         # Returns all the Spree::RelationType's which apply_to this class.
         def relation_types
           Spree::RelationType.where(applies_from: to_s)
-            .where('applies_to IN (?)', [to_s, Spree::Product.to_s]).order(:name)
+                             .where('applies_to IN (?)', [to_s, Spree::Product.to_s]).order(:name)
         end
 
         def relation_filter_for_products
           Spree::Product.where('spree_products.deleted_at' => nil)
-            .where('spree_products.available_on IS NOT NULL')
-            .where('spree_products.available_on <= ?', Time.now)
-            .references(self)
+                        .where('spree_products.available_on IS NOT NULL')
+                        .where('spree_products.available_on <= ?', Time.zone.now)
+                        .references(self)
         end
 
         def relation_filter_for_variants
           Spree::Variant.joins(:product)
-            .where('spree_products.deleted_at' => nil)
-            .where('spree_products.available_on IS NOT NULL')
-            .where('spree_products.available_on <= ?', Time.now)
-            .references(self)
+                        .where('spree_products.deleted_at' => nil)
+                        .where('spree_products.available_on IS NOT NULL')
+                        .where('spree_products.available_on <= ?', Time.zone.now)
+                        .references(self)
         end
 
         def relation_filter_for_relation_type(relation_type)

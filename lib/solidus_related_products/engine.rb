@@ -19,7 +19,7 @@ module SolidusRelatedProducts
           Rails.configuration.cache_classes ? require(klass) : load(klass)
         end
 
-        ActionView::Base.send :include, RelatedProductsHelper
+        ActionView::Base.include RelatedProductsHelper
       end
     end
 
