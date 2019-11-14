@@ -5,16 +5,15 @@ source "https://rubygems.org"
 branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 gem "solidus", git: "https://github.com/solidusio/solidus.git", branch: branch
 
-gem 'factory_bot', (branch < 'v2.5' ? '4.10.0' : '> 4.10.0'), group: :test
-
-if ENV['DB'] == 'mysql'
+case ENV['DB']
+when 'mysql'
   gem 'mysql2', '~> 0.4.10'
-else
+when 'postgresql'
   gem 'pg', '~> 0.21'
+else
+  gem 'sqlite3'
 end
 
-group :development, :test do
-  gem "pry-rails"
-end
+gem 'solidus_extension_dev_tools', github: 'solidusio-contrib/solidus_extension_dev_tools'
 
 gemspec
