@@ -25,6 +25,7 @@ end
 
 group :test do
   gem 'rspec-activemodel-mocks'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
 end
 
