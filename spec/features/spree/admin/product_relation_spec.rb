@@ -111,7 +111,7 @@ RSpec.describe 'Admin Product Relation', :js do
       it 'can remove records' do
         expect(page).to have_text other_product.name
 
-        accept_alert do
+        accept_confirm do
           within_row(1) do
             expect(column_text(2)).to eq other_product.name
             click_icon :trash

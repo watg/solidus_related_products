@@ -6,7 +6,10 @@ module SolidusRelatedProducts
       class_option :auto_run_migrations, type: :boolean, default: false
 
       def add_javascripts
-        append_file 'vendor/assets/javascripts/spree/backend/all.js', "//= require spree/backend/solidus_related_products\n"
+        append_file(
+          'vendor/assets/javascripts/spree/backend/all.js',
+          "//= require spree/backend/solidus_related_products\n"
+        )
       end
 
       def add_migrations
@@ -18,7 +21,7 @@ module SolidusRelatedProducts
         if run_migrations
           run 'bundle exec rake db:migrate'
         else
-          puts 'Skipping rake db:migrate, don\'t forget to run it!'
+          puts 'Skipping rake db:migrate, don\'t forget to run it!' # rubocop:disable Rails/Output
         end
       end
     end
