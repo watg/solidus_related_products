@@ -100,11 +100,12 @@ RSpec.describe 'Admin Relation Types', :js do
 
     context 'delete' do
       it 'can remove records' do
-        within_row(1) do
-          expect(column_text(1)).to eq 'Gears'
-          click_icon :trash
+        accept_confirm do
+          within_row(1) do
+            expect(column_text(1)).to eq 'Gears'
+            click_icon :trash
+          end
         end
-        page.driver.browser.switch_to.alert.accept unless Capybara.javascript_driver == :poltergeist
         expect(page).to have_text 'successfully removed!'
       end
     end
