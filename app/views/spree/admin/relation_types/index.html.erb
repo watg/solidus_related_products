@@ -14,7 +14,8 @@
       <col style="width: 15%" />
       <col style="width: 15%" />
       <col style="width: 15%" />
-      <col style="width: 40%" />
+      <col style="width: 35%" />
+      <col style="width: 5%" />
       <col style="width: 15%" />
     </colgroup>
     <thead>
@@ -23,6 +24,7 @@
         <th><%= I18n.t('spree.applies_from') %></th>
         <th><%= I18n.t('spree.applies_to') %></th>
         <th><%= I18n.t('spree.description') %></th>
+        <th><%= I18n.t('spree.bidirectional') %></th>
         <th class="actions" data-hook="admin_pages_index_header_actions"></th>
       </tr>
     </thead>
@@ -33,6 +35,7 @@
           <td><%= relation_type.applies_from %></td>
           <td><%= relation_type.applies_to %></td>
           <td><%= relation_type.description %></td>
+          <td><%= relation_type.bidirectional? ? t('spree.say_yes') : t('spree.say_no') %></td>
           <td class="actions" data-hook="admin_relation_types_index_row_actions">
             <%= link_to_edit relation_type, no_text: true %>
             <%= link_to_delete relation_type, no_text: true %>

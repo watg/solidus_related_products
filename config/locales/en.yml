@@ -8,6 +8,12 @@ en:
       spree/relation_type:
         one: Relation Type
         other: Relation Types
+    errors:
+      models:
+        spree/relation_type:
+          attributes:
+            bidirectional:
+              bidirectional_not_allowed: is allowed only when applied to the same models
   spree:
     admin:
       tab:
@@ -20,3 +26,4 @@ en:
     add_related_product: Add Related Product
     name_or_sku_short: Name or SKU
     no_relation_types: You need to configure Relation Types before you can use this feature.
+    bidirectional: Bi-Directional

@@ -20,5 +20,12 @@
       <%= f.text_area :description, rows: 4, class: 'form-control' %>
       <%= error_message_on :relation_type, :description %>
     </div>
+    <% if @relation_type.new_record? %>
+      <div data-hook="bidirectional" class="form-group">
+        <%= f.label :bidirectional, I18n.t('spree.bidirectional') %><br />
+        <%= f.check_box :bidirectional, class: 'form-control' %>
+        <%= error_message_on :bidirectional, :bidirectional %>
+      </div>
+    <% end %>
   </div>
 </div>
