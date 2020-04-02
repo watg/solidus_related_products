@@ -1,27 +1,59 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :product_relation, class: Spree::Relation do
-    association :relatable, factory: :product
-    association :related_to, factory: :product
-    association :relation_type, factory: :product_relation_type
+  factory :relation, class: Spree::Relation do
+    trait :from_product_to_product do
+      association :relatable, factory: :product
+      association :related_to, factory: :product
+      association :relation_type, factory: [:relation_type, :from_product_to_product]
+    end
+
+    trait :from_product_to_variant do
+      association :relatable, factory: :product
+      association :related_to, factory: :variant
+      association :relation_type, factory: [:relation_type, :from_product_to_variant]
+    end
+
+    trait :from_variant_to_product do
+      association :relatable, factory: :variant
+      association :related_to, factory: :product
+      association :relation_type, factory: [:relation_type, :from_variant_to_product]
+    end
+
+    trait :from_variant_to_variant do
+      association :relatable, factory: :variant
+      association :related_to, factory: :variant
+      association :relation_type, factory: [:relation_type, :from_variant_to_variant]
+    end
+
+    factory :product_relation, traits: [:from_product_to_product]
+    factory :variant_relation, traits: [:from_product_to_variant]
   end
 
-  factory :variant_relation, class: Spree::Relation do
-    association :relatable, factory: :product
-    association :related_to, factory: :variant
-    association :relation_type, factory: :variant_relation_type
-  end
-
-  factory :product_relation_type, class: Spree::RelationType do
+  factory :relation_type, class: Spree::RelationType do
     name { ('A'..'Z').to_a.sample(6).join }
-    applies_from { 'Spree::Product' }
-    applies_to { 'Spree::Product' }
-  end
 
-  factory :variant_relation_type, class: Spree::RelationType do
-    name       { ('A'..'Z').to_a.sample(6).join }
-    applies_from { 'Spree::Product' }
-    applies_to { 'Spree::Variant' }
+    trait :from_product_to_product do
+      applies_from { 'Spree::Product' }
+      applies_to { 'Spree::Product' }
+    end
+
+    trait :from_product_to_variant do
+      applies_from { 'Spree::Product' }
+      applies_to { 'Spree::Variant' }
+    end
+
+    trait :from_variant_to_product do
+      applies_from { 'Spree::Variant' }
+      applies_to { 'Spree::Product' }
+    end
+
+    trait :from_variant_to_variant do
+      applies_from { 'Spree::Variant' }
+      applies_to { 'Spree::Variant' }
+    end
+
+    factory :product_relation_type, traits: [:from_product_to_product]
+    factory :variant_relation_type, traits: [:from_product_to_variant]
   end
 end
