@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'deface', '~> 1.0'
   s.add_runtime_dependency 'solidus_core', ['>= 1.0', '< 3']
   s.add_runtime_dependency 'solidus_backend', ['>= 1.0', '< 3']
-  s.add_runtime_dependency 'solidus_support', '~> 0.4.0'
+  s.add_runtime_dependency 'solidus_support', '>= 0.4', '< 0.6'
 
   s.add_development_dependency 'rspec-activemodel-mocks'
   s.add_development_dependency 'selenium-webdriver'
