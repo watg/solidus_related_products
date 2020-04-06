@@ -16,7 +16,7 @@ class RelatedToAutocomplete
     $(@relatedToSelector).css('display', 'block')
 
   initializeProductSelect: ->
-    $(@relatedToSelector).productAutocomplete();
+    $(@relatedToSelector).productAutocomplete({ multiple: false });
 
   initializeVariantSelect: ->
     $(@relatedToSelector).variantAutocomplete();
