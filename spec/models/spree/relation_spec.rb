@@ -15,16 +15,16 @@ RSpec.describe Spree::Relation, type: :model do
   end
 
   context 'callbacks' do
-    describe 'after create' do
-      let(:inverse_relation) {
-        described_class.find_by(
-          relation_type: subject.relation_type,
-          relatable: subject.related_to,
-          related_to: subject.relatable,
-          description: subject.description
-        )
-      }
+    let(:inverse_relation) {
+      described_class.find_by(
+        relation_type: subject.relation_type,
+        relatable: subject.related_to,
+        related_to: subject.relatable,
+        description: subject.description
+      )
+    }
 
+    describe 'after create' do
       context 'when relation type is not bi-directional' do
         it 'does not add an inverse relation' do
           expect { create(:product_relation) }.to change { Spree::Relation.count }.from(0).to(1)
@@ -40,6 +40,28 @@ RSpec.describe Spree::Relation, type: :model do
           expect { subject }.to change { Spree::Relation.count }.from(0).to(2)
 
           expect(inverse_relation).to be_present
+        end
+      end
+    end
+
+    describe 'after destroy' do
+      subject { product_relation.destroy! }
+
+      context 'when relation type is not bi-directional' do
+        let!(:product_relation) { create(:product_relation, description: 'Lorem Ipsum') }
+
+        it 'does not destroy the inverse relation' do
+          expect { subject }.to change { Spree::Relation.count }.from(1).to(0)
+        end
+      end
+
+      context 'when relation type is bi-directional' do
+        let!(:product_relation) { create(:product_relation, :bidirectional, description: 'Lorem Ipsum') }
+
+        it 'destroyes the inverse relation' do
+          expect { subject }.to change { Spree::Relation.count }.from(2).to(0)
+
+          expect(inverse_relation).to_not be_present
         end
       end
     end
