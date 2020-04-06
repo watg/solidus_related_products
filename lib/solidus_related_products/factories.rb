@@ -26,6 +26,12 @@ FactoryBot.define do
       association :relation_type, factory: [:relation_type, :from_variant_to_variant]
     end
 
+    trait :bidirectional do
+      before :create do |relation|
+        relation.relation_type.update!(bidirectional: true)
+      end
+    end
+
     factory :product_relation, traits: [:from_product_to_product]
     factory :variant_relation, traits: [:from_product_to_variant]
   end
