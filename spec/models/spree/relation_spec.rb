@@ -12,6 +12,13 @@ RSpec.describe Spree::Relation, type: :model do
     it { is_expected.to validate_presence_of(:relation_type) }
     it { is_expected.to validate_presence_of(:relatable) }
     it { is_expected.to validate_presence_of(:related_to) }
+    it { is_expected.to validate_numericality_of(:discount_amount) }
+
+    context 'when bi-directional' do
+      subject { create(:relation, :from_product_to_product, :bidirectional) }
+
+      it { is_expected.to validate_numericality_of(:discount_amount).is_equal_to(0) }
+    end
   end
 
   context 'callbacks' do
