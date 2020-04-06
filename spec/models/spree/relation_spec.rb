@@ -44,6 +44,21 @@ RSpec.describe Spree::Relation, type: :model do
       end
     end
 
+    describe 'after save' do
+      let(:old_description) { 'old description' }
+      let(:new_description) { 'Lorem Ipsum' }
+
+      subject { create(:product_relation, :bidirectional, description: old_description) }
+
+      it 'changes the inverse relation description' do
+        expect(inverse_relation.description).to eq(old_description)
+
+        subject.update(description: new_description)
+
+        expect(inverse_relation.reload.description).to eq(new_description)
+      end
+    end
+
     describe 'after destroy' do
       subject { product_relation.destroy! }
 

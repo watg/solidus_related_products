@@ -8,6 +8,7 @@ class Spree::Relation < ApplicationRecord
   validates :relation_type, :relatable, :related_to, presence: true
 
   after_create :create_inverse, unless: :has_inverse?, if: :bidirectional?
+  after_save :update_inverse, if: :bidirectional?
   after_destroy :destroy_inverses,
     if: Proc.new { |relation| relation.bidirectional? && relation.has_inverse? }
 
@@ -27,8 +28,16 @@ class Spree::Relation < ApplicationRecord
     { relation_type: relation_type, relatable: related_to, related_to: relatable }
   end
 
+  def inverse_extra_options
+    { description: description }
+  end
+
   def create_inverse
-    self.class.create!(inverse_options.merge(description: description))
+    self.class.create!(inverse_options.merge(inverse_extra_options))
+  end
+
+  def update_inverse
+    inverses.update_all(inverse_extra_options)
   end
 
   def destroy_inverses
