@@ -26,6 +26,12 @@ RSpec.describe 'Admin Relation Types', :js do
       expect(page).to have_current_path spree.admin_relation_types_path, ignore_query: true
     end
 
+    it 'shows bidirectional checkbox' do
+      click_link 'New Relation Type'
+
+      expect(page).to have_field 'Bi-Directional'
+    end
+
     it 'shows validation errors with blank :name' do
       click_link 'New Relation Type'
       expect(page).to have_current_path spree.new_admin_relation_type_path, ignore_query: true
@@ -82,6 +88,10 @@ RSpec.describe 'Admin Relation Types', :js do
       before do
         within_row(1) { click_icon :edit }
         expect(page).to have_current_path(spree.edit_admin_relation_type_path(1))
+      end
+
+      it 'does not show bidirectional checkbox' do
+        expect(page).to_not have_field 'Bi-Directional'
       end
 
       it 'can update an existing relation type' do

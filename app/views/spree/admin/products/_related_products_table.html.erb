@@ -31,9 +31,11 @@
           <% end %>
         </td>
         <td>
-          <%= form_for relation, url: admin_product_relation_path(relation.relatable, relation) do |f| %>
-            <%= f.text_field :discount_amount, class: 'form-control text-center' %>
-            <%= f.button I18n.t('spree.update'), type: 'submit', class: 'button btn-primary', id: 'update_discount_amount'  %>
+          <% unless relation.bidirectional? %>
+            <%= form_for relation, url: admin_product_relation_path(relation.relatable, relation) do |f| %>
+              <%= f.text_field :discount_amount, class: 'form-control text-center' %>
+              <%= f.button I18n.t('spree.update'), type: 'submit', class: 'button btn-primary', id: 'update_discount_amount'  %>
+            <% end %>
           <% end %>
         </td>
         <td class="actions">

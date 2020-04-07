@@ -34,12 +34,21 @@ $ bundle exec rails g solidus_related_products:install
 
 You can create four different RelationTypes:
 
-| Applies From | Applies To |
-| - | - |
-| Spree::Product | Spree::Product |
-| Spree::Product | Spree::Variant |
-| Spree::Variant | Spree::Product |
-| Spree::Variant | Spree::Variant |
+| Applies From | Applies To | Bi-Directional available |
+| - | - | - |
+| Spree::Product | Spree::Product | Yes |
+| Spree::Product | Spree::Variant | No  |
+| Spree::Variant | Spree::Product | No  |
+| Spree::Variant | Spree::Variant | Yes |
+
+**Bi-Directional**
+You can optionally set the bi-directional flag (if available) to automatically create the inverse relation,
+the flag can be set only on the type creation and can't be changed later, this is needed to avoid unpredictable behavior
+in the case that the flag is changed.
+Keep in mind that if you remove one side of the relation, also the other hand will be removed, the same way happens
+for the description.
+The discounts are disabled for Bi-Directional by setting the discount amount to be only zero, this is needed
+because it's not clear how this feature should behave in this case.
 
 The following examples use a `Spree::Product -> Spree::Product` relation type.
 
