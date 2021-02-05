@@ -35,8 +35,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'solidus_backend', ['>= 1.0', '< 3']
   s.add_runtime_dependency 'solidus_support', '~> 0.5'
 
-  s.add_development_dependency 'rspec-activemodel-mocks'
-  s.add_development_dependency 'selenium-webdriver'
-  s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'solidus_dev_support'
 end
