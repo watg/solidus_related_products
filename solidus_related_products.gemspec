@@ -37,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'solidus_dev_support', '~> 2.3'
   spec.add_development_dependency 'rspec-activemodel-mocks'
   spec.add_development_dependency 'shoulda-matchers'
+  spec.add_development_dependency 'webdrivers'
 end
