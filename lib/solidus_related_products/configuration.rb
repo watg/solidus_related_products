@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'spree/preferences/configuration'
+
 module SolidusRelatedProducts
   class Configuration < Spree::Preferences::Configuration
     # Define here the settings for this extension, e.g.:
