@@ -24,6 +24,11 @@ Add solidus_related_products to your Gemfile:
 gem 'solidus_related_products'
 ```
 
+To get the latest changes, we suggest using the Github version:
+```ruby
+gem 'solidus_related_products', github: 'solidusio-contrib/solidus_related_products'
+```
+
 Bundle your dependencies and run the installation generator:
 
 ```shell
