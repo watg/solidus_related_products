@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'autoprefixer-rails', '~> 10.2.5'
   spec.add_development_dependency 'rspec-activemodel-mocks'
   spec.add_development_dependency 'shoulda-matchers'
+  spec.add_development_dependency 'webdrivers'
 end

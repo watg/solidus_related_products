@@ -72,6 +72,7 @@ module SolidusRelatedProducts
       # it up the inheritance chain.
       # rubocop:disable Style/MissingRespondToMissing
       def method_missing(method, *args)
+        return super if ::SolidusRelatedProducts.config[:no_conflict]
         # Fix for Ruby 1.9
         raise NoMethodError if method == :to_ary
 
