@@ -2,8 +2,10 @@
   <colgroup>
     <col style="width: 5%" />
     <col style="width: 35%" />
-    <col style="width: 35%" />
-    <col style="width: 20%" />
+    <col style="width: 15%" />
+    <col style="width: 5%" />
+    <col style="width: 30%" />
+    <col style="width: 5%" />
     <col style="width: 5%" />
   </colgroup>
   <thead>
@@ -11,6 +13,7 @@
       <th></th>
       <th><%= I18n.t('spree.name') %></th>
       <th><%= I18n.t('spree.type') %></th>
+      <th><%= I18n.t('spree.quantity') %></th>
       <th><%= I18n.t('spree.description') %></th>
       <th><%= I18n.t('spree.discount_amount') %></th>
       <th class="actions"></th>
@@ -26,7 +29,13 @@
         <td><%= relation.relation_type.name %></td>
         <td>
           <%= form_for relation, url: admin_product_variant_relation_path(relation.relatable.product, relation.relatable, relation) do |f| %>
-            <%= f.text_field :description, class: 'form-control text-center' %>
+            <%= f.number_field :quantity, min: 1, class: 'form-control text-center' %>
+            <%= f.button I18n.t('spree.update'), type: 'submit', class: 'button btn-primary', id: 'update_quantity' %>
+          <% end %>
+        </td>
+        <td>
+          <%= form_for relation, url: admin_product_variant_relation_path(relation.relatable.product, relation.relatable, relation) do |f| %>
+            <%= f.text_field :description, class: 'form-control text-left' %>
             <%= f.button I18n.t('spree.update'), type: 'submit', class: 'button btn-primary', id: 'update_description' %>
           <% end %>
         </td>

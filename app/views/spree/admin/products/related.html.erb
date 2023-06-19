@@ -28,6 +28,13 @@
           </div>
         </div>
 
+        <div id="related_product_description" class="col-1">
+          <div class="form-group">
+            <%= label_tag :add_quantity, I18n.t('spree.quantity') %>
+            <%= number_field_tag :add_quantity, 1, min: 1, class: 'form-control text-center' %>
+          </div>
+        </div>
+
         <div id="related_product_description" class="col-3">
           <div class="form-group">
             <%= label_tag :add_description, I18n.t('spree.description') %>
@@ -35,7 +42,7 @@
           </div>
         </div>
 
-        <div id="related_product_discount" class="col-3">
+        <div id="related_product_discount" class="col-2">
           <div class="form-group">
             <%= label_tag :add_discount, I18n.t('spree.discount_amount') %>
             <%= text_field_tag :add_discount, 0.0, class: 'form-control text-center' %>

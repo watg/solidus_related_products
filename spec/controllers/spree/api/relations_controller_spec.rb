@@ -60,12 +60,13 @@ RSpec.describe Spree::Api::RelationsController, type: :controller do
           format: :json,
           product_id: product.id,
           id: relation.id,
-          relation: { discount_amount: 2.0, description: 'Related Description' }
+          relation: { quantity: 2, discount_amount: 2.0, description: 'Related Description' }
         }
         expect {
           put :update, params: params
         }.to change { relation.reload.discount_amount.to_s }.from('0.0').to('2.0')
                                                             .and change { relation.reload.description }.from(nil).to('Related Description')
+                                                            .and change { relation.quantity }.to(2)
       end
     end
 

@@ -21,6 +21,7 @@ RSpec.describe 'Admin Variant Relation', :js do
     within('#add-line-item') do
       select2_search product_relation_type.name, from: 'Type'
       select2_search other_product.name, from: 'Name or SKU'
+      fill_in 'add_quantity', with: 22
       fill_in 'add_description', with: 'Related Products Description'
       fill_in 'add_discount', with: '0.8'
       click_link 'Add'
@@ -30,6 +31,7 @@ RSpec.describe 'Admin Variant Relation', :js do
       expect(page).to have_field('relation_discount_amount', with: '0.8')
       expect(column_text(2)).to eq other_product.name
       expect(column_text(3)).to eq product_relation_type.name
+      expect(page).to have_field('relation_quantity', with: '22')
       expect(page).to have_field('relation_description', with: 'Related Products Description')
     end
   end
@@ -41,6 +43,7 @@ RSpec.describe 'Admin Variant Relation', :js do
     within('#add-line-item') do
       select2_search variant_relation_type.name, from: 'Type'
       select2_search other_variant.sku, from: 'Name or SKU'
+      fill_in 'add_quantity', with: 33
       fill_in 'add_description', with: 'Related Variants Description'
       fill_in 'add_discount', with: '0.8'
       click_link 'Add'
@@ -50,6 +53,7 @@ RSpec.describe 'Admin Variant Relation', :js do
       expect(page).to have_field('relation_discount_amount', with: '0.8')
       expect(column_text(2)).to eq other_variant.name_for_relation
       expect(column_text(3)).to eq variant_relation_type.name
+      expect(page).to have_field('relation_quantity', with: '33')
       expect(page).to have_field('relation_description', with: 'Related Variants Description')
     end
   end
@@ -91,6 +95,17 @@ RSpec.describe 'Admin Variant Relation', :js do
 
       within_row(1) do
         expect(page).to have_field('relation_discount_amount', with: '0.9')
+      end
+    end
+
+    it 'update quantity' do
+      within_row(1) do
+        fill_in 'relation_quantity', with: 44
+        find('#update_quantity').click
+      end
+
+      within_row(1) do
+        expect(page).to have_field('relation_quantity', with: '44')
       end
     end
 

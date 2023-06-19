@@ -2,6 +2,7 @@ class CreateRelation
   constructor: (@addRelationSelector) ->
     @relatedToInputSelector = '#add_related_to_name'
     @relationTypeInputSelector = '#add_type'
+    @quantityInputSelector = '#add_quantity'
     @discountInputSelector = '#add_discount'
     @descriptionInputSelector = '#add_description'
 
@@ -22,6 +23,7 @@ class CreateRelation
         data: {
           'relation[related_to_id]': $(@relatedToInputSelector).val(),
           'relation[relation_type_id]': $(@relationTypeInputSelector).val(),
+          'relation[quantity]' : $(@quantityInputSelector).val(),
           'relation[discount_amount]' : $(@discountInputSelector).val(),
           'relation[description]' : $(@descriptionInputSelector).val()
         }

@@ -10,6 +10,8 @@ class Spree::Relation < ApplicationRecord
   validates :discount_amount, numericality: true
   validates :discount_amount, numericality: { equal_to: 0 }, if: :bidirectional?
 
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 1, allow_nil: true }
+
   after_create :create_inverse, unless: :has_inverse?, if: :bidirectional?
   after_save :update_inverse, if: :bidirectional?
   after_destroy :destroy_inverses,

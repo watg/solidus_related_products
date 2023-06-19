@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :relation, class: Spree::Relation do
+    quantity { 1 }
+
     trait :from_product_to_product do
       association :relatable, factory: :product
       association :related_to, factory: :product

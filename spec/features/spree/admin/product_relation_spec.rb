@@ -22,6 +22,7 @@ RSpec.describe 'Admin Product Relation', :js do
     within('#add-line-item') do
       select2_search product_relation_type.name, from: 'Type'
       select2_search other_product.name, from: 'Name or SKU'
+      fill_in 'add_quantity', with: 3
       fill_in 'add_description', with: 'Related Products Description'
       fill_in 'add_discount', with: '0.8'
       click_link 'Add'
@@ -32,6 +33,7 @@ RSpec.describe 'Admin Product Relation', :js do
       expect(column_text(2)).to eq other_product.name
       expect(column_text(3)).to eq product_relation_type.name
       expect(page).to have_field('relation_description', with: 'Related Products Description')
+      expect(page).to have_field('relation_quantity', with: '3')
     end
   end
 
@@ -43,6 +45,7 @@ RSpec.describe 'Admin Product Relation', :js do
       select2_search variant_relation_type.name, from: 'Type'
       select2_search other_variant.sku, from: 'Name or SKU'
       fill_in 'add_discount', with: '0.8'
+      fill_in 'add_quantity', with: 4
       fill_in 'add_description', with: 'Related Variants Description'
       click_link 'Add'
     end
@@ -52,6 +55,7 @@ RSpec.describe 'Admin Product Relation', :js do
       expect(column_text(2)).to eq other_variant.name_for_relation
       expect(column_text(3)).to eq variant_relation_type.name
       expect(page).to have_field('relation_description', with: 'Related Variants Description')
+      expect(page).to have_field('relation_quantity', with: '4')
     end
   end
 
@@ -63,6 +67,7 @@ RSpec.describe 'Admin Product Relation', :js do
         related_to: other_product,
         relation_type: product_relation_type,
         discount_amount: 0.5,
+        quantity: 2,
         description: 'Related Description'
       )
     end
@@ -82,6 +87,7 @@ RSpec.describe 'Admin Product Relation', :js do
         expect(column_text(2)).to eq other_product.name
         expect(column_text(3)).to eq product_relation_type.name
         expect(page).to have_field('relation_description', with: 'Related Description')
+        expect(page).to have_field('relation_quantity', with: '2')
       end
     end
 
@@ -93,6 +99,17 @@ RSpec.describe 'Admin Product Relation', :js do
 
       within_row(1) do
         expect(page).to have_field('relation_discount_amount', with: '0.9')
+      end
+    end
+
+    it 'update quantity' do
+      within_row(1) do
+        fill_in 'relation_quantity', with: '3'
+        find('#update_quantity').click
+      end
+
+      within_row(1) do
+        expect(page).to have_field('relation_quantity', with: '3')
       end
     end
 

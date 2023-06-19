@@ -58,6 +58,7 @@ module Spree
           :relation_type,
           :relatable,
           :related_to_id,
+          :quantity,
           :discount_amount,
           :description,
           :relation_type_id,
