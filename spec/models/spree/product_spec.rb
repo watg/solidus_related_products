@@ -62,6 +62,90 @@ RSpec.describe Spree::Product, type: :model do
       end
     end
 
+    describe '.relation_filter_for_products' do
+      subject { described_class.relation_filter_for_products }
+
+      context 'with one product' do
+        before do
+          @product.update available_on: available_on, discontinue_on: discontinue_on
+        end
+
+        context 'the product has an available_on date in the past' do
+          let(:available_on) { 1.day.ago }
+
+          context 'the product has a discontinue_on date of nil' do
+            let(:discontinue_on) { nil }
+
+            it "lists the related product" do
+              expect(subject).to eq [@product]
+            end
+          end
+
+          context 'the product has a discontinue_on date in the past' do
+            let(:discontinue_on) { 1.day.ago }
+
+            it "does not list the product" do
+              expect(subject).to eq []
+            end
+          end
+        end
+
+        context 'the product has an available_on date in the future' do
+          let(:available_on) { 1.day.from_now }
+
+          context 'the product is not discontinued' do
+            let(:discontinue_on) { nil }
+
+            it "does not list the product" do
+              expect(subject).to eq []
+            end
+          end
+        end
+      end
+    end
+
+    describe '.relation_filter_for_variants' do
+      subject { described_class.relation_filter_for_variants }
+
+      context 'a product with one variant' do
+        before do
+          @product.update available_on: available_on, discontinue_on: discontinue_on
+        end
+
+        context 'the product has an available_on date in the past' do
+          let(:available_on) { 1.day.ago }
+
+          context 'the product has a discontinue_on date of nil' do
+            let(:discontinue_on) { nil }
+
+            it "lists the related variant" do
+              expect(subject).to eq [@product.master]
+            end
+          end
+
+          context 'the product has a discontinue_on date in the past' do
+            let(:discontinue_on) { 1.day.ago }
+
+            it "does not list the variant" do
+              expect(subject).to eq []
+            end
+          end
+        end
+
+        context 'the product has an available_on date in the future' do
+          let(:available_on) { 1.day.from_now }
+
+          context 'the product is not discontinued' do
+            let(:discontinue_on) { nil }
+
+            it "does not list the variant" do
+              expect(subject).to eq []
+            end
+          end
+        end
+      end
+    end
+
     describe 'RelationType finders' do
       context 'when the relation applies_to Spree::Product' do
         before do
