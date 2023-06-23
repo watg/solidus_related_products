@@ -3,12 +3,12 @@
 *~
 .#*
 .DS_Store
-.bundle
 .idea
 .project
 .sass-cache
 coverage
 Gemfile.lock
+Gemfile-local
 tmp
 nbproject
 pkg
